@@ -191,7 +191,7 @@
 
         .metrics-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 1.5rem;
         }
 
@@ -508,22 +508,24 @@
     <div class="container">
         <header class="header">
             <h1>Conversational Identity Intelligence</h1>
-            <p class="subtitle">Executive Proposal for Audience Acuity</p>
+            <p class="subtitle">A Vision for Audience Acuity</p>
         </header>
 
         <nav class="navigation">
             <button class="nav-button active" data-section="press-release">Press Release</button>
             <button class="nav-button" data-section="executive-summary">Executive Summary</button>
-            <button class="nav-button" data-section="strategic-roadmap">Strategic Roadmap</button>
             <button class="nav-button" data-section="competitive-advantage">Competitive Advantage</button>
-            <button class="nav-button" data-section="faq-section">FAQ & Next Steps</button>
+            <button class="nav-button" data-section="strategic-roadmap">Strategic Roadmap</button>
+            <button class="nav-button" data-section="customer-faq">Customer FAQ</button>
+            <button class="nav-button" data-section="internal-faq">Internal FAQ</button>
+            <button class="nav-button" data-section="next-steps">Next Steps</button>
         </nav>
 
         <main class="content">
             <!-- Press Release Section -->
             <section id="press-release" class="section press-release active">
                 <h2>Audience Acuity Unveils Conversational Identity Intelligence</h2>
-                <h4>Enabling Non-Technical Users to Extract Strategic Value from Identity Data</h4>
+                <h4>Empowering non-technical users to activate identity insights in real time from AA's Super Identity Graph</h4>
                 <p class="date">Las Vegas, June 1, 2025</p>
                 
                 <p class="body-text">
@@ -587,6 +589,32 @@
                 </div>
             </section>
 
+            <!-- Competitive Advantage Section -->
+            <section id="competitive-advantage" class="section competitive-advantage">
+                <h2>Competitive Advantage</h2>
+                
+                <p class="intro">
+                    This capability establishes Audience Acuity as the innovation leader in the identity space with three market-differentiating benefits:
+                </p>
+                
+                <div class="advantages-grid">
+                    <div class="advantage-card">
+                        <h3>Accessibility Advantage</h3>
+                        <p>Expands identity data value from technical teams to business decision-makers</p>
+                    </div>
+                    
+                    <div class="advantage-card">
+                        <h3>Execution Advantage</h3>
+                        <p>Reduces time from insight to activation from weeks to minutes</p>
+                    </div>
+                    
+                    <div class="advantage-card">
+                        <h3>Strategic Advantage</h3>
+                        <p>Transforms Super Identity Graph from a data asset to a strategic decision engine</p>
+                    </div>
+                </div>
+            </section>
+
             <!-- Strategic Roadmap Section -->
             <section id="strategic-roadmap" class="section strategic-roadmap">
                 <h2>Strategic Roadmap</h2>
@@ -616,14 +644,14 @@
                         <div class="timeline-phase next">
                             <div class="phase-label">NEXT</div>
                             <div class="timeline-quarters">
-                                <div class="phase-bar" style="grid-column: 3 / span 2;">GA</div>
+                                <div class="phase-bar" style="grid-column: 3 / span 2;">Beta</div>
                             </div>
                         </div>
                         
                         <div class="timeline-phase later">
                             <div class="phase-label">LATER</div>
                             <div class="timeline-quarters">
-                                <div class="phase-bar" style="grid-column: 5 / span 3;">Expansion</div>
+                                <div class="phase-bar" style="grid-column: 5 / span 3;">GA & Expand</div>
                             </div>
                         </div>
                     </div>
@@ -651,9 +679,9 @@
                             <div class="phase-tag">NEXT</div>
                             <div class="phase-timeframe">Q4 2025 - Q1 2026</div>
                         </div>
-                        <h3>Snowflake General Availability</h3>
+                        <h3>Snowflake Beta</h3>
                         <ul>
-                            <li>Enhance user experience based on beta feedback</li>
+                            <li>Enhance user experience based on feedback</li>
                             <li>Scale reasoning and performance for enterprise-level usage</li>
                             <li>Add integration with activation platforms</li>
                         </ul>
@@ -680,35 +708,9 @@
                 </div>
             </section>
 
-            <!-- Competitive Advantage Section -->
-            <section id="competitive-advantage" class="section competitive-advantage">
-                <h2>Competitive Advantage</h2>
-                
-                <p class="intro">
-                    This capability establishes Audience Acuity as the innovation leader in the identity space with three market-differentiating benefits:
-                </p>
-                
-                <div class="advantages-grid">
-                    <div class="advantage-card">
-                        <h3>Accessibility Advantage</h3>
-                        <p>Expands identity data value from technical teams to business decision-makers</p>
-                    </div>
-                    
-                    <div class="advantage-card">
-                        <h3>Execution Advantage</h3>
-                        <p>Reduces time from insight to activation from weeks to minutes</p>
-                    </div>
-                    
-                    <div class="advantage-card">
-                        <h3>Strategic Advantage</h3>
-                        <p>Transforms identity from a data asset to a strategic decision engine</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- FAQ & Next Steps Section -->
-            <section id="faq-section" class="section faq-section">
-                <h2>Key Questions & Answers</h2>
+            <!-- Customer FAQ Section -->
+            <section id="customer-faq" class="section faq-section">
+                <h2>Customer FAQs</h2>
                 
                 <div class="faq-list">
                     <div class="faq-item">
@@ -733,6 +735,73 @@
                     
                     <div class="faq-item">
                         <button class="faq-question">
+                            What is Conversational Identity Intelligence?
+                            <span class="toggle-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Conversational Identity Intelligence is a new capability within our Super Identity Graph (SIG) that allows non-technical users to interact with identity data using natural language. Instead of needing to know SQL or rely on data analysts, marketers and strategists can simply ask questions and receive immediate answers, visualizations, and strategic recommendations.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            What kinds of questions can I ask?
+                            <span class="toggle-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>You can ask discovery questions ("What segments have the highest match rates?"), comparative questions ("How do our high-value customers differ from occasional buyers?"), predictive questions ("Which channels would be most effective for reaching lapsed customers?"), and strategic questions ("How should I allocate my media budget across channels based on identity insights?").</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            Does this replace the need for data analysts?
+                            <span class="toggle-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>No. While Conversational Identity Intelligence dramatically expands access to identity insights, data analysts remain essential for complex custom analyses, advanced modeling, and data governance. This tool empowers analysts to focus on higher-value work while democratizing access to everyday insights.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            How accurate are the answers?
+                            <span class="toggle-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>The system provides confidence scoring for every response and transparently explains its reasoning. For high-stakes decisions, the platform can generate the underlying SQL for analyst verification. Our early beta customers report accuracy comparable to analyst-generated queries for standard identity analytics tasks.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            How does this integrate with our existing activation platforms?
+                            <span class="toggle-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Conversational Identity Intelligence includes direct connectors to major DSPs, social platforms, email systems, and customer data platforms. You can seamlessly create and activate audiences based on your conversational analysis without switching contexts.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            How long does implementation take?
+                            <span class="toggle-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Since this capability is built natively into our Snowflake application, implementation is minimal. Most customers can be fully operational within days, including custom configuration for your specific identity data and business context.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Internal FAQ Section -->
+            <section id="internal-faq" class="section faq-section">
+                <h2>Internal FAQs</h2>
+                
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <button class="faq-question">
                             How does this position us against competitors?
                             <span class="toggle-icon">+</span>
                         </button>
@@ -750,8 +819,71 @@
                             <p>This capability would be developed through a combination of internal resources and specialized Data Cloud with AI expertise. The total development time would be approximately 2 quarters from concept to GA, with 3 months of intensive beta testing with strategic customers.</p>
                         </div>
                     </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            How does this capability impact our sales process?
+                            <span class="toggle-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Conversational Identity Intelligence expands our buyer persona beyond data teams to include marketing strategists, media planners, and business analysts. Sales teams should lead with business outcomes and strategic use cases rather than technical capabilities when presenting to these audiences.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            What's the pricing model?
+                            <span class="toggle-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Conversational Identity Intelligence is priced as a premium tier on top of our core SIG offering. We anticipate an increase in ARPU for customers who adopt this capability. The pricing could be structured as a monthly subscription based on user seats.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            What are the anticipated support requirements?
+                            <span class="toggle-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Support requirements are expected to be minimal after initial onboarding, as the system continuously improves through usage. Primary support needs will focus on advanced use case enablement rather than technical troubleshooting.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            What about customers who don't use Snowflake?
+                            <span class="toggle-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Initially, this capability is only available for Snowflake customers. Based on market reception, we'll evaluate expanding to other data cloud platforms in future releases. This Snowflake-first approach strengthens our strategic partnership and co-selling opportunities.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            What metrics will we track to measure success?
+                            <span class="toggle-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Key success metrics include: adoption rate within customer organizations, query volume by user role, time-to-insight compared to traditional methods, activation rate (percentage of queries leading to audience creation), and impact on renewal rates and expansion revenue.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            How does this affect our product roadmap?
+                            <span class="toggle-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Conversational Identity Intelligence represents a strategic expansion of the SIG platform from pure identity resolution to intelligence and activation. Future roadmap items could focus on expanding strategic capabilities, including user-driven and autonomous query and optimization, vertical specialization.</p>
+                        </div>
+                    </div>
                 </div>
-                
+            </section>
+            
+            <!-- Next Steps Section -->
+            <section id="next-steps" class="section next-steps">
                 <h2>Next Steps</h2>
                 
                 <div class="steps-grid">
