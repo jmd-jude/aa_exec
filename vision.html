@@ -59,11 +59,18 @@
         /* Header */
         .header {
             background-color: white;
-            padding: 1.5rem 2rem;
+            padding: 1.5rem 0;
             border-bottom: 1px solid var(--border);
+            box-shadow: var(--shadow);
+        }
+
+        .header-container {
             display: flex;
             align-items: center;
-            box-shadow: var(--shadow);
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 0 2rem;
         }
 
         .logo {
@@ -518,10 +525,12 @@
 <body>
     <div class="container">
         <header class="header">
-            <img src="AcuityLogo.png" alt="Audience Acuity Logo" class="logo">
-            <div class="header-content">
-                <h1>Conversational Identity Intelligence</h1>
-                <p class="subtitle">A Vision for Audience Acuity</p>
+            <div class="header-container">
+                <img src="AcuityLogo.png" alt="Audience Acuity Logo" class="logo">
+                <div class="header-content">
+                    <h1>Conversational Identity Intelligence</h1>
+                    <p class="subtitle">A Vision for Audience Acuity</p>
+                </div>
             </div>
         </header>
 
