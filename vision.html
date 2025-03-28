@@ -61,8 +61,19 @@
             background-color: white;
             padding: 1.5rem 2rem;
             border-bottom: 1px solid var(--border);
-            text-align: center;
+            display: flex;
+            align-items: center;
             box-shadow: var(--shadow);
+        }
+
+        .logo {
+            height: 60px;
+            margin-right: 2rem;
+        }
+
+        .header-content {
+            flex: 1;
+            text-align: center;
         }
 
         .header h1 {
@@ -507,8 +518,11 @@
 <body>
     <div class="container">
         <header class="header">
-            <h1>Conversational Identity Intelligence</h1>
-            <p class="subtitle">A Vision for Audience Acuity</p>
+            <img src="AcuityLogo.png" alt="Audience Acuity Logo" class="logo">
+            <div class="header-content">
+                <h1>Conversational Identity Intelligence</h1>
+                <p class="subtitle">A Vision for Audience Acuity</p>
+            </div>
         </header>
 
         <nav class="navigation">
