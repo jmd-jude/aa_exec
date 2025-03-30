@@ -37,7 +37,7 @@ with st.sidebar:
     st.subheader("Extract strategic value from your data model")
     
     # API configuration
-    api_provider = st.selectbox("API Provider", ["OpenAI", "Anthropic"])
+    api_provider = st.selectbox("Select Platform", ["OpenAI", "Anthropic"])
     
     if api_provider == "OpenAI":
         model_options = ["gpt-4o", "gpt-4o-mini"]
