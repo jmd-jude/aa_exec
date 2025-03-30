@@ -43,19 +43,31 @@ with st.sidebar:
         model_options = ["gpt-4o", "gpt-4o-mini"]
         selected_model = st.selectbox("Select Model", model_options)
     else:
-        model_options = ["claude-3-7-sonnet-20250219", "claude-3-5-sonnet"]
-        selected_model = st.selectbox("Select Model", model_options)
+        # Display friendly names in the dropdown
+        model_display_names = ["claude 3-7 sonnet", "claude 3-5 sonnet"]
+        
+        # Map display names to API model IDs
+        model_api_mapping = {
+            "claude 3-7 sonnet": "claude-3-7-sonnet-20250219",
+            "claude 3-5 sonnet": "claude-3-5-sonnet"
+        }
+        
+        # Show friendly names in UI
+        selected_display_name = st.selectbox("Select Model", model_display_names)
+        
+        # Use the mapping to get the actual API model ID
+        selected_model = model_api_mapping[selected_display_name]
     
     st.markdown("---")
-    st.markdown("### Analysis Options")
+    st.markdown("### Analysis Options (select at least one)")
     
-    include_phylum_1 = st.checkbox("Analytical Boundaries", value=True, 
+    include_phylum_1 = st.checkbox("Analytical Boundaries", value=False, 
                                 help="What questions can be answered with this data?")
-    include_phylum_2 = st.checkbox("Optimization Opportunities", value=True,
+    include_phylum_2 = st.checkbox("Optimization Opportunities", value=False,
                                 help="How can we extract more value from existing data?")
-    include_phylum_3 = st.checkbox("Strategic Expansion", value=True, 
+    include_phylum_3 = st.checkbox("Strategic Expansion", value=False, 
                                 help="What high-value data should we add?")
-    include_phylum_4 = st.checkbox("Business Logic", value=True,
+    include_phylum_4 = st.checkbox("Business Logic", value=False,
                                 help="What business assumptions are encoded in this schema?")
 
 # ----- MAIN AREA -----
