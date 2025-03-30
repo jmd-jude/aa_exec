@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schema Strategist</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #3B82F6;
+            --primary-dark: #2563EB;
+            --background: #F9FAFB;
+            --card-bg: #FFFFFF;
+            --text: #1F2937;
+            --text-light: #6B7280;
+            --border: #E5E7EB;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background-color: white;
+            padding: 2rem 0;
+            border-bottom: 1px solid var(--border);
+            box-shadow: var(--shadow);
+        }
+
+        .header-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.75rem;
+            margin-bottom: 0.75rem;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--primary-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            max-width: 700px;
+        }
+
+        /* Navigation */
+        .navigation {
+            display: flex;
+            justify-content: center;
+            background-color: white;
+            padding: 0.75rem 2rem;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .nav-button {
+            background: none;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            margin: 0 0.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+            border-bottom: 2px solid transparent;
+            font-weight: 500;
+            transition: all 0.2s;
+            font-size: 1rem;
+        }
+
+        .nav-button:hover {
+            color: var(--primary);
+        }
+
+        .nav-button.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        /* Content */
+        .content {
+            flex: 1;
+            padding: 3rem 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .section {
+            display: none;
+            background-color: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 0.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        /* Vision Section */
+        .vision-section h2 {
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-dark);
+        }
+
+        .vision-section p {
+            font-size: 1.125rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .callout {
+            background-color: var(--background);
+            border-left: 4px solid var(--primary);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            font-size: 1.125rem;
+        }
+
+        .pillars {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .pillar {
+            background-color: var(--background);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+        }
+
+        .pillar h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+
+        /* App Section */
+        .app-section h2 {
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-dark);
+        }
+
+        .app-container {
+            width: 100%;
+            height: 700px;
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+
+        .app-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background-color: var(--background);
+            color: var(--text-light);
+        }
+
+        .app-placeholder svg {
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: white;
+            padding: 1.5rem 2rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .content {
+                padding: 2rem 1rem;
+            }
+            
+            .section {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-container">
+                <h1>Schema Strategist</h1>
+                <p class="subtitle">Transforming technical data models into strategic business intelligence</p>
+            </div>
+        </header>
+
+        <nav class="navigation">
+            <button class="nav-button active" data-section="vision">Vision</button>
+            <button class="nav-button" data-section="app">App Demo</button>
+        </nav>
+
+        <main class="content">
+            <!-- Vision Section -->
+            <section id="vision" class="section vision-section active">
+                <h2>Unlocking Hidden Value in Your Data Models</h2>
+                
+                <p>
+                    For too long, data schemas have been treated as mere technical documentation—blueprints understood only by those who build and maintain data systems. Yet hidden within these structures lies a wealth of strategic business intelligence, waiting to be uncovered.
+                </p>
+                
+                <p>
+                    The Schema Strategist Framework transforms database schemas from technical artifacts into strategic assets that reveal your organization's analytical capabilities, blind spots, and future opportunities.
+                </p>
+                
+                <div class="callout">
+                    <strong>Data schemas are not just technical artifacts but strategic assets that encode your organization's analytical capabilities, blind spots, and future opportunities.</strong>
+                </div>
+                
+                <p>
+                    Every data model tells a story about what your organization values, measures, and connects. By applying AI-powered analysis to these models, we surface insights that bridge the gap between technical implementation and business strategy.
+                </p>
+                
+                <div class="pillars">
+                    <div class="pillar">
+                        <h3>Analytical Boundaries</h3>
+                        <p>Discover what questions can and cannot be answered with your current data, focusing resources on high-value, achievable insights.</p>
+                    </div>
+                    
+                    <div class="pillar">
+                        <h3>Optimization Opportunities</h3>
+                        <p>Identify derived metrics, segmentations, and relationships hiding in plain sight within your existing data assets.</p>
+                    </div>
+                    
+                    <div class="pillar">
+                        <h3>Strategic Expansion</h3>
+                        <p>Pinpoint high-value data additions that would create disproportionate analytical value with minimal investment.</p>
+                    </div>
+                    
+                    <div class="pillar">
+                        <h3>Business Logic Repository</h3>
+                        <p>Surface the implicit organizational knowledge and assumptions encoded in your data structures.</p>
+                    </div>
+                </div>
+                
+                <p>
+                    Schema Strategist represents a paradigm shift in how organizations understand their data assets. By extracting strategic value from technical structures, we create an asymmetric advantage: minor inputs yielding major strategic outputs.
+                </p>
+                
+                <p>
+                    This isn't just about better documentation or improved data governance. It's about transforming the very nature of how business and technical stakeholders collaborate around data, creating a shared language that bridges the divide between SQL and strategy.
+                </p>
+            </section>
+
+            <!-- App Demo Section -->
+            <section id="app" class="section app-section">
+                <h2>Interactive Schema Analysis</h2>
+                
+                <div class="app-container">
+                    <!-- Replace this placeholder with your actual iframe once deployed -->
+                    <div class="app-placeholder">
+                        <!-- Replace the div above with: -->
+                        <iframe src="https://cylyndyr.streamlit.app/?embed=True" width="100%" height="100%" frameborder="0"></iframe>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>© 2025 Schema Strategist | Transforming data models into business intelligence</p>
+        </footer>
+    </div>
+
+    <script>
+        // Navigation
+        const navButtons = document.querySelectorAll('.nav-button');
+        const sections = document.querySelectorAll('.section');
+        
+        navButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const sectionId = button.getAttribute('data-section');
+                
+                // Update active button
+                navButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                // Show active section
+                sections.forEach(section => {
+                    if (section.id === sectionId) {
+                        section.classList.add('active');
+                    } else {
+                        section.classList.remove('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
