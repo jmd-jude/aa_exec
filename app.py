@@ -61,7 +61,7 @@ with st.sidebar:
     st.markdown("---")
     st.markdown("### Analysis Options (select at least one)")
     
-    include_phylum_1 = st.checkbox("Analytical Boundaries", value=False, 
+    include_phylum_1 = st.checkbox("Analytical Boundaries", value=True, 
                                 help="What questions can be answered with this data?")
     include_phylum_2 = st.checkbox("Optimization Opportunities", value=False,
                                 help="How can we extract more value from existing data?")
