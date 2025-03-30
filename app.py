@@ -10,7 +10,7 @@ load_dotenv()
 
 # Page configuration
 st.set_page_config(
-    page_title="Schema Intelligence POC",
+    page_title="Schema Genie POC",
     page_icon="🧠",
     layout="wide"
 )
@@ -33,7 +33,7 @@ Structure your response with clear section headers and subsections. Use bullet p
 
 # ----- SIDEBAR -----
 with st.sidebar:
-    st.title("Schema Intelligence")
+    st.title("Schema Genie")
     st.subheader("Extract strategic value from your data model")
     
     # API configuration
@@ -71,7 +71,7 @@ with st.sidebar:
                                 help="What business assumptions are encoded in this schema?")
 
 # ----- MAIN AREA -----
-st.title("Schema Intelligence Framework")
+st.title("Schema Genie POC")
 st.markdown("""
 Upload your database schema JSON or paste it directly to extract strategic insights.
 """)
@@ -337,7 +337,7 @@ if schema_json and st.button("Run Analysis"):
 
 # Display results
 if "analysis" in st.session_state.analysis_results:
-    st.markdown("## Schema Intelligence Analysis")
+    st.markdown("## Schema Genie Analysis")
     
     tab1, tab2 = st.tabs(["Analysis", "Raw Schema"])
     
