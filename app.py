@@ -221,7 +221,7 @@ if schema_json and st.button("Run Analysis"):
             analysis_prompt += """
             1. ANALYTICAL BOUNDARIES: 
                - What specific questions can be answered with this data?
-               - What are 5-10 specific, detailed analytical queries that would be valuable to a strategic decision maker?
+               - What are 3-5 specific, detailed analytical queries that would be valuable to a strategic decision maker?
                - For each query, explain what business value it would provide.
             """
         
@@ -229,7 +229,7 @@ if schema_json and st.button("Run Analysis"):
             analysis_prompt += """
             2. OPTIMIZATION OPPORTUNITIES:
                - What derived metrics, calculations, or views could add value?
-               - Identify potential segmentations that aren't explicitly modeled but could be derived.
+               - Identify potential segmentations that aren't explicitly modeled but could be easily derived.
                - Suggest ways to better utilize existing data without new collection.
             """
         
