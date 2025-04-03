@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classroom AI | Beyond Tools to Transformation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4F46E5;
+            --primary-light: #818CF8;
+            --primary-dark: #4338CA;
+            --secondary: #10B981;
+            --accent: #F59E0B;
+            --background: #F9FAFB;
+            --card-bg: #FFFFFF;
+            --text: #1F2937;
+            --text-light: #6B7280;
+            --border: #E5E7EB;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background-color: white;
+            padding: 2rem 0;
+            border-bottom: 1px solid var(--border);
+            box-shadow: var(--shadow);
+        }
+
+        .header-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.75rem;
+            margin-bottom: 0.75rem;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--primary-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            max-width: 700px;
+        }
+
+        /* Navigation */
+        .navigation {
+            display: flex;
+            justify-content: center;
+            background-color: white;
+            padding: 0.75rem 2rem;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .nav-button {
+            background: none;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            margin: 0 0.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+            border-bottom: 2px solid transparent;
+            font-weight: 500;
+            transition: all 0.2s;
+            font-size: 1rem;
+        }
+
+        .nav-button:hover {
+            color: var(--primary);
+        }
+
+        .nav-button.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        /* Content */
+        .content {
+            flex: 1;
+            padding: 3rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .section {
+            display: none;
+            background-color: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 0.5rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .section h2 {
+            color: var(--primary-dark);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .section h3 {
+            color: var(--primary);
+            font-size: 1.4rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Vision Section */
+        .vision-callout {
+            background-color: var(--background);
+            border-left: 4px solid var(--primary);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            font-size: 1.125rem;
+            font-weight: 500;
+        }
+
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .pillar-card {
+            background-color: var(--background);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            border-top: 4px solid;
+        }
+
+        .pillar-card.learning {
+            border-top-color: var(--primary);
+        }
+
+        .pillar-card.community {
+            border-top-color: var(--secondary);
+        }
+
+        .pillar-card.platform {
+            border-top-color: var(--accent);
+        }
+
+        .pillar-card h3 {
+            margin-top: 0.5rem;
+        }
+
+        /* Differentiators Section */
+        .differentiators-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .differentiator-card {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--primary);
+        }
+
+        .differentiator-card h3 {
+            color: var(--primary);
+            margin-top: 0;
+        }
+
+        /* For Different Audiences Section */
+        .audience-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .audience-card {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .audience-card.admin {
+            border-top: 4px solid var(--primary);
+        }
+
+        .audience-card.teacher {
+            border-top: 4px solid var(--secondary);
+        }
+
+        .audience-card.student {
+            border-top: 4px solid var(--accent);
+        }
+
+        .audience-card h3 {
+            margin-top: 0.5rem;
+        }
+
+        /* App Prototype Section */
+        .prototype-container {
+            background-color: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 0.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .prototype-container h2 {
+            color: var(--primary-dark);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .app-container {
+            width: 100%;
+            height: 600px;
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            overflow: hidden;
+            margin-top: 1.5rem;
+        }
+
+        .app-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background-color: var(--background);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .app-mockup {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 0.25rem;
+        }
+
+        /* Next Steps Section */
+        .next-steps-section h2 {
+            margin-bottom: 2rem;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .step-card {
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--secondary);
+        }
+
+        .step-card h3 {
+            margin-bottom: 0.5rem;
+            color: var(--secondary);
+        }
+
+        .step-date {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: white;
+            padding: 1.5rem 2rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .content {
+                padding: 2rem 1rem;
+            }
+            
+            .section {
+                padding: 1.5rem;
+            }
+            
+            .navigation {
+                flex-wrap: wrap;
+            }
+            
+            .nav-button {
+                padding: 0.5rem 1rem;
+                margin: 0.25rem;
+            }
+            
+            .pillars-grid, .differentiators-grid, .audience-cards, .steps-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-container">
+                <h1>Classroom AI</h1>
+                <p class="subtitle">Beyond Tools to Transformation: A Strategic Approach to AI in Education</p>
+            </div>
+        </header>
+
+        <nav class="navigation">
+            <button class="nav-button active" data-section="vision">Vision</button>
+            <button class="nav-button" data-section="differentiators">Why It's Different</button>
+            <button class="nav-button" data-section="for-audiences">For Schools</button>
+            <button class="nav-button" data-section="prototype">Platform Preview</button>
+            <button class="nav-button" data-section="next-steps">Next Steps</button>
+        </nav>
+
+        <main class="content">
+            <!-- Vision Section -->
+            <section id="vision" class="section vision-section active">
+                <h2>Our Vision</h2>
+                
+                <p>
+                    Schools today face a "shadow AI" dilemma. Teachers and students are already using AI tools without guidance, coordination, or proper governance. This creates risks around data privacy, inconsistent application, and missed opportunities for truly transformative educational experiences.
+                </p>
+                
+                <div class="vision-callout">
+                    We're creating an AI ecosystem that transforms how private schools integrate artificial intelligence—moving from haphazard adoption to strategic implementation. Our approach preserves what makes great teachers exceptional while providing the structure, governance, and tools needed for sustainable, responsible AI adoption.
+                </div>
+                
+                <p>
+                    Rather than fighting this trend, schools can embrace AI in a strategic, governed way that amplifies what makes their teachers exceptional. The right approach treats AI not as a replacement for teaching expertise but as an extension of it.
+                </p>
+                
+                <h3>Our Three-Pillar Approach</h3>
+                
+                <div class="pillars-grid">
+                    <div class="pillar-card platform">
+                        <h3>Teacher-Centric AI Platform</h3>
+                        <p>A custom application that allows teachers to create AI assistants enhanced by their own unique curriculum materials, teaching philosophy, and institutional knowledge.</p>
+                    </div>
+
+                    <div class="pillar-card community">
+                        <h3>Community of Practice</h3>
+                        <p>Building internal champions and frameworks for sharing best practices that create sustainable, evolving AI integration.</p>
+                    </div>
+
+                    <div class="pillar-card learning">
+                        <h3>Expert-Led Learning Journeys</h3>
+                        <p>Structured sessions that build AI literacy and competency across faculty, tailored to different subjects and comfort levels.</p>
+                    </div>
+                </div>
+                
+                <p>
+                    The result isn't just better technology; it's better education. By creating a structured approach to AI adoption, we help schools leverage these powerful tools while maintaining the human connection that makes great teaching exceptional.
+                </p>
+            </section>
+
+            <!-- Differentiators Section -->
+            <section id="differentiators" class="section differentiators-section">
+                <h2>Why This Is Different</h2>
+                
+                <p>
+                    Our approach is fundamentally different from schools simply paying for ChatGPT or Claude subscriptions. We're not offering access to generic AI tools—we're providing a comprehensive ecosystem designed specifically for educational excellence.
+                </p>
+                
+                <div class="differentiators-grid">
+                    <div class="differentiator-card">
+                        <h3>Educational Context</h3>
+                        <p>Our platform is built specifically for classroom use, not as a general-purpose tool. Everything from the interface to security protocols is optimized for educational environments.</p>
+                    </div>
+                    
+                    <div class="differentiator-card">
+                        <h3>Teacher Knowledge Amplification</h3>
+                        <p>Unlike generic AI that knows nothing about a specific teacher's approach or materials, our platform preserves and enhances each teacher's unique expertise by incorporating their curriculum materials directly into the AI's knowledge.</p>
+                    </div>
+                    
+                    <div class="differentiator-card">
+                        <h3>Institutional Governance</h3>
+                        <p>School administrators gain visibility and control over AI usage, ensuring consistency with educational standards and compliance with privacy regulations.</p>
+                    </div>
+                    
+                    <div class="differentiator-card">
+                        <h3>Knowledge Continuity</h3>
+                        <p>When teachers leave or change roles, their AI assistants can remain available (with appropriate controls), preserving valuable institutional knowledge.</p>
+                    </div>
+                    
+                    <div class="differentiator-card">
+                        <h3>Cost Efficiency</h3>
+                        <p>Instead of managing dozens of individual subscriptions, schools get a unified platform with predictable pricing and no duplicate costs.</p>
+                    </div>
+                    
+                    <div class="differentiator-card">
+                        <h3>Integration with Our Expertise</h3>
+                        <p>This isn't just software—it's backed by our hands-on training, educational AI expertise, and ongoing support to ensure teachers maximize its potential.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- For Different Audiences Section -->
+            <section id="for-audiences" class="section for-audiences-section">
+                <h2>For Your School Community</h2>
+                
+                <p>
+                    Our solution creates value for everyone in your school community by addressing their specific needs and challenges with AI.
+                </p>
+                
+                <div class="audience-cards">
+                    <div class="audience-card admin">
+                        <h3>For Administrators</h3>
+                        <p>"Govern AI use across your school while amplifying your teachers' unique expertise."</p>
+                        <ul>
+                            <li>Ensure privacy and data security compliance</li>
+                            <li>Transform shadow AI into governed, strategic implementation</li>
+                            <li>Create school-wide consistency while preserving teacher autonomy</li>
+                            <li>Manage AI access and usage with robust administrative controls</li>
+                            <li>Demonstrate innovation leadership to parents and stakeholders</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="audience-card teacher">
+                        <h3>For Teachers</h3>
+                        <p>"Extend your teaching through AI that understands your curriculum, approach, and students."</p>
+                        <ul>
+                            <li>Create AI assistants that embody your teaching philosophy</li>
+                            <li>Free up time for high-value interactions with students</li>
+                            <li>Provide personalized support for different learning styles</li>
+                            <li>Ensure your curriculum knowledge remains accessible</li>
+                            <li>Develop AI literacy through hands-on implementation</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="audience-card student">
+                        <h3>For Students</h3>
+                        <p>"Experience more personalized learning through AI that embodies your teachers' knowledge and guidance."</p>
+                        <ul>
+                            <li>Access teacher-guided AI assistance anytime</li>
+                            <li>Receive personalized support for your learning style</li>
+                            <li>Develop critical thinking about AI's role in education</li>
+                            <li>Learn to use AI as a tool for deeper understanding</li>
+                            <li>Prepare for a future where AI literacy is essential</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- App Prototype Section -->
+            <section id="prototype" class="section prototype-section">
+                <h2>Platform Preview</h2>
+                
+                <p>
+                    Our teacher-centric AI platform makes it easy for educators to create custom AI assistants powered by their own curriculum materials and teaching approach.
+                </p>
+                
+                <div class="app-container">
+                    <div class="app-placeholder">
+                        <h3>Teacher Assistant Builder</h3>
+                        <p>The platform allows teachers to upload their curriculum materials and create custom AI assistants that reflect their teaching style and subject expertise.</p>
+                        <img src="/api/placeholder/800/500" alt="Screenshot of the Teacher AI Assistant platform" class="app-mockup" />
+                    </div>
+                </div>
+                
+                <h3>Key Platform Features</h3>
+                <ul>
+                    <li><strong>Document Upload:</strong> Teachers can easily upload their lesson plans, notes, and materials</li>
+                    <li><strong>Custom AI Configuration:</strong> Simple tools to create assistants tailored to specific subjects</li>
+                    <li><strong>Classroom Integration:</strong> Seamless use in classroom settings with appropriate controls</li>
+                    <li><strong>Administrative Dashboard:</strong> School-wide governance and analytics</li>
+                    <li><strong>Security & Privacy:</strong> Built with educational data protection standards in mind</li>
+                </ul>
+            </section>
+
+            <!-- Next Steps Section -->
+            <section id="next-steps" class="section next-steps-section">
+                <h2>Next Steps</h2>
+                
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <h3>Discovery Workshop</h3>
+                        <p>We'll conduct a half-day workshop with key stakeholders to understand your school's specific needs, current AI usage, and strategic goals.</p>
+                    </div>
+                    
+                    <div class="step-card">
+                        <h3>Pilot Program</h3>
+                        <p>Start with a targeted pilot involving 3-5 faculty members across different departments to test the platform and refine our approach.</p>
+                    </div>
+                    
+                    <div class="step-card">
+                        <h3>Implementation Plan</h3>
+                        <p>Develop a comprehensive rollout strategy including training sessions, platform customization, and governance framework.</p>
+                    </div>
+                </div>
+                
+                <h3>Let's Transform Your School's AI Approach</h3>
+                <p>
+                    We're ready to help your school move from haphazard AI adoption to strategic implementation. Contact us today to schedule your initial consultation and take the first step toward a comprehensive AI strategy that enhances teaching and learning.
+                </p>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>© 2025 Classroom AI | Transforming AI in Education</p>
+        </footer>
+    </div>
+
+    <script>
+        // Navigation
+        const navButtons = document.querySelectorAll('.nav-button');
+        const sections = document.querySelectorAll('.section');
+        
+        navButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const sectionId = button.getAttribute('data-section');
+                
+                // Update active button
+                navButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                // Show active section
+                sections.forEach(section => {
+                    if (section.id === sectionId) {
+                        section.classList.add('active');
+                    } else {
+                        section.classList.remove('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
