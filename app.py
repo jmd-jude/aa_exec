@@ -114,7 +114,10 @@ example_schemas = {
                         "CAMPAIGN_FREQUENCY": {"type": "NUMBER", "nullable": True, "primary_key": False},
                         "PREFERRED_CATEGORIES": {"type": "VARIANT", "nullable": True, "primary_key": False},
                         "PREFERRED_PLATFORMS": {"type": "VARIANT", "nullable": True, "primary_key": False},
-                        "PRIMARY_OBJECTIVE": {"type": "TEXT", "nullable": True, "primary_key": False}
+                        "PRIMARY_OBJECTIVE": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "TARGET_AUDIENCE_AGE": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "TARGET_AUDIENCE_GENDER": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "CREATED_AT": {"type": "TIMESTAMP_NTZ", "nullable": True, "primary_key": False}
                     }
                 },
                 "CAMPAIGNS": {
@@ -125,7 +128,9 @@ example_schemas = {
                         "OBJECTIVE": {"type": "TEXT", "nullable": True, "primary_key": False},
                         "START_DATE": {"type": "TIMESTAMP_NTZ", "nullable": True, "primary_key": False},
                         "END_DATE": {"type": "TIMESTAMP_NTZ", "nullable": True, "primary_key": False},
-                        "BUDGET": {"type": "FLOAT", "nullable": True, "primary_key": False}
+                        "BUDGET": {"type": "FLOAT", "nullable": True, "primary_key": False},
+                        "TARGET_PLATFORMS": {"type": "VARIANT", "nullable": True, "primary_key": False},
+                        "CAMPAIGN_STATUS": {"type": "TEXT", "nullable": True, "primary_key": False}
                     }
                 },
                 "INFLUENCERS": {
@@ -133,22 +138,238 @@ example_schemas = {
                         "INFLUENCER_ID": {"type": "TEXT", "nullable": True, "primary_key": False},
                         "NAME": {"type": "TEXT", "nullable": True, "primary_key": False},
                         "TIER": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "PRIMARY_PLATFORM": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "PRIMARY_CATEGORY": {"type": "TEXT", "nullable": True, "primary_key": False},
                         "FOLLOWER_COUNT": {"type": "NUMBER", "nullable": True, "primary_key": False},
-                        "ENGAGEMENT_RATE": {"type": "FLOAT", "nullable": True, "primary_key": False}
+                        "ENGAGEMENT_RATE": {"type": "FLOAT", "nullable": True, "primary_key": False},
+                        "AUDIENCE_FEMALE_PCT": {"type": "FLOAT", "nullable": True, "primary_key": False},
+                        "AUDIENCE_MALE_PCT": {"type": "FLOAT", "nullable": True, "primary_key": False}
                     }
+                },
+                "CAMPAIGN_INFLUENCERS": {
+                    "fields": {
+                        "CAMPAIGN_INFLUENCER_ID": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "CAMPAIGN_ID": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "INFLUENCER_ID": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "COMPENSATION": {"type": "FLOAT", "nullable": True, "primary_key": False},
+                        "CONTENT_REQUIREMENTS": {"type": "VARIANT", "nullable": True, "primary_key": False},
+                        "PLATFORM": {"type": "TEXT", "nullable": True, "primary_key": False}
+                    }
+                },
+                "PERFORMANCE_DATA": {
+                    "fields": {
+                        "PERFORMANCE_ID": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "CAMPAIGN_ID": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "INFLUENCER_ID": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "CONTENT_TYPE": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "PLATFORM": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "IMPRESSIONS": {"type": "NUMBER", "nullable": True, "primary_key": False},
+                        "LIKES": {"type": "NUMBER", "nullable": True, "primary_key": False},
+                        "COMMENTS": {"type": "NUMBER", "nullable": True, "primary_key": False},
+                        "CLICKS": {"type": "NUMBER", "nullable": True, "primary_key": False},
+                        "CONVERSIONS": {"type": "NUMBER", "nullable": True, "primary_key": False},
+                        "ROI": {"type": "FLOAT", "nullable": True, "primary_key": False}
+                    }
+                }
+            }
+        },
+        "business_context": {
+            "description": "Social Growth is a leading influencer marketing agency that connects brands with influential content creators across multiple platforms. This dataset encompasses profiles of influencers across various tiers and niches, brand partnerships, campaign performance metrics, and audience demographics.",
+            "table_descriptions": {
+                "BRANDS": {
+                    "description": "Client company profiles with industry sectors, marketing objectives, budget information, and target audience preferences for campaign planning."
+                },
+                "CAMPAIGNS": {
+                    "description": "Marketing initiatives with defined objectives, timelines, budgets, and target platforms. Tracks campaign status from planning through completion."
+                },
+                "INFLUENCERS": {
+                    "description": "Detailed profiles of content creators across various platforms, categories, and influence tiers. Includes engagement metrics and demographic information."
+                },
+                "CAMPAIGN_INFLUENCERS": {
+                    "description": "Junction table connecting influencers to specific campaigns, including compensation details and content requirements."
+                },
+                "PERFORMANCE_DATA": {
+                    "description": "Content-level performance metrics for influencer posts, including impressions, engagements, clicks, conversions, and ROI calculations."
                 }
             }
         }
     },
+    
+    "Sports Analytics Database": {
+        "base_schema": {
+            "tables": {
+                "FANS": {
+                    "fields": {
+                        "FAN_ID": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "FIRST_NAME": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "LAST_NAME": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "EMAIL_HASH": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "FAN_SINCE": {"type": "TIMESTAMP_NTZ", "nullable": True, "primary_key": False},
+                        "ACQUISITION_SOURCE": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "LIFETIME_VALUE": {"type": "FLOAT", "nullable": True, "primary_key": False},
+                        "FAN_SEGMENT": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "LOYALTY_TIER": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "AGE_RANGE": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "GENDER": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "MARKETING_CONSENT": {"type": "BOOLEAN", "nullable": True, "primary_key": False}
+                    }
+                },
+                "GAMES": {
+                    "fields": {
+                        "GAME_ID": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "SEASON_YEAR": {"type": "NUMBER", "nullable": True, "primary_key": False},
+                        "OPPONENT": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "GAME_DATE": {"type": "TIMESTAMP_NTZ", "nullable": True, "primary_key": False},
+                        "IS_HOME_GAME": {"type": "BOOLEAN", "nullable": True, "primary_key": False},
+                        "GAME_TYPE": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "ATTENDANCE": {"type": "NUMBER", "nullable": True, "primary_key": False},
+                        "RESULT": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "TEAM_SCORE": {"type": "NUMBER", "nullable": True, "primary_key": False},
+                        "OPPONENT_SCORE": {"type": "NUMBER", "nullable": True, "primary_key": False},
+                        "SPECIAL_PROMOTION": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "TV_NETWORK": {"type": "TEXT", "nullable": True, "primary_key": False}
+                    }
+                },
+                "TICKETS": {
+                    "fields": {
+                        "TICKET_ID": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "FAN_ID": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "GAME_ID": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "PURCHASE_DATE": {"type": "TIMESTAMP_NTZ", "nullable": True, "primary_key": False},
+                        "QUANTITY": {"type": "NUMBER", "nullable": True, "primary_key": False},
+                        "SECTION": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "TICKET_TYPE": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "PRICE_PER_TICKET": {"type": "FLOAT", "nullable": True, "primary_key": False},
+                        "TOTAL_AMOUNT": {"type": "FLOAT", "nullable": True, "primary_key": False},
+                        "PURCHASE_CHANNEL": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "IS_SEASON_TICKET": {"type": "BOOLEAN", "nullable": True, "primary_key": False}
+                    }
+                },
+                "MERCHANDISE_SALES": {
+                    "fields": {
+                        "TRANSACTION_ID": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "FAN_ID": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "GAME_ID": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "TRANSACTION_DATE": {"type": "TIMESTAMP_NTZ", "nullable": True, "primary_key": False},
+                        "LOCATION": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "SUBTOTAL_AMOUNT": {"type": "FLOAT", "nullable": True, "primary_key": False},
+                        "DISCOUNT_AMOUNT": {"type": "FLOAT", "nullable": True, "primary_key": False},
+                        "TOTAL_AMOUNT": {"type": "FLOAT", "nullable": True, "primary_key": False},
+                        "PAYMENT_METHOD": {"type": "TEXT", "nullable": True, "primary_key": False}
+                    }
+                },
+                "MERCHANDISE_PRODUCTS": {
+                    "fields": {
+                        "PRODUCT_ID": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "SKU": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "NAME": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "CATEGORY": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "IS_PLAYER_SPECIFIC": {"type": "BOOLEAN", "nullable": True, "primary_key": False},
+                        "PLAYER_ID": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "BASE_PRICE": {"type": "FLOAT", "nullable": True, "primary_key": False},
+                        "CURRENT_PRICE": {"type": "FLOAT", "nullable": True, "primary_key": False},
+                        "INVENTORY_QUANTITY": {"type": "NUMBER", "nullable": True, "primary_key": False}
+                    }
+                },
+                "CONCESSION_SALES": {
+                    "fields": {
+                        "TRANSACTION_ID": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "GAME_ID": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "FAN_ID": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "TRANSACTION_TIME": {"type": "TIMESTAMP_NTZ", "nullable": True, "primary_key": False},
+                        "CONCESSION_LOCATION": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "PERIOD": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "TOTAL_AMOUNT": {"type": "FLOAT", "nullable": True, "primary_key": False},
+                        "PAYMENT_METHOD": {"type": "TEXT", "nullable": True, "primary_key": False}
+                    }
+                },
+                "DIGITAL_ENGAGEMENT": {
+                    "fields": {
+                        "ENGAGEMENT_ID": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "FAN_ID": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "CHANNEL": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "EVENT_TYPE": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "CONTENT_CATEGORY": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "DEVICE_TYPE": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "TIMESTAMP": {"type": "TIMESTAMP_NTZ", "nullable": True, "primary_key": False},
+                        "GAME_RELATED": {"type": "BOOLEAN", "nullable": True, "primary_key": False},
+                        "GAME_ID": {"type": "TEXT", "nullable": True, "primary_key": False}
+                    }
+                }
+            }
+        },
+        "business_context": {
+            "description": "The Metro Mavericks are a professional basketball team with diverse fan engagement across digital and in-person channels. This dataset encompasses complete fan profiles, attendance patterns, merchandise purchases, and engagement data to enable data-driven decisions for growing the fanbase and maximizing revenue opportunities.",
+            "table_descriptions": {
+                "FANS": {
+                    "description": "Core profiles of team fans including demographics, segments, and lifetime value. Contains both personally identifiable information (hashed for privacy) and behavioral classifications."
+                },
+                "GAMES": {
+                    "description": "Complete game history with opponent, scores, attendance, and broadcast details. Includes both regular season and playoff games."
+                },
+                "TICKETS": {
+                    "description": "Ticket purchase history for all games, including both individual game tickets and season ticket packages. Contains pricing, seating, and purchase channel information."
+                },
+                "MERCHANDISE_SALES": {
+                    "description": "Transaction records for merchandise purchases, with links to specific fans when available. Includes location, payment method, and summary financial information."
+                },
+                "MERCHANDISE_PRODUCTS": {
+                    "description": "Catalog of all team merchandise available for purchase, with categories, pricing, and inventory information. Includes both player-specific and general team items."
+                },
+                "CONCESSION_SALES": {
+                    "description": "In-stadium food and beverage purchases during games, with details on timing, location, and items purchased. Can be linked to specific fans when loyalty cards are used."
+                },
+                "DIGITAL_ENGAGEMENT": {
+                    "description": "Fan interaction with team's digital properties, including website, mobile app, email, and social media. Contains detailed behavior tracking for engagement analysis."
+                }
+            }
+        }
+    },
+
     "E-commerce Database": {
         "base_schema": {
             "tables": {
+                "UNIFIED_CUSTOMERS": {
+                    "fields": {
+                        "CUSTOMER_ID": {"type": "TEXT", "nullable": False, "primary_key": False},
+                        "EMAIL_HASH": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "GA4_USER_ID": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "FIRST_NAME": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "LAST_NAME": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "CUSTOMER_SINCE": {"type": "TIMESTAMP_NTZ", "nullable": True, "primary_key": False},
+                        "LIFETIME_VALUE": {"type": "NUMBER", "nullable": True, "primary_key": False},
+                        "SEGMENT": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "ACQUISITION_CHANNEL": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "LAST_PURCHASE_DATE": {"type": "TIMESTAMP_NTZ", "nullable": True, "primary_key": False},
+                        "PURCHASE_COUNT": {"type": "NUMBER", "nullable": True, "primary_key": False},
+                        "MARKETING_CONSENT": {"type": "BOOLEAN", "nullable": True, "primary_key": False}
+                    }
+                },
+                "CUSTOMER_DEMOGRAPHICS": {
+                    "fields": {
+                        "CUSTOMER_ID": {"type": "TEXT", "nullable": False, "primary_key": False},
+                        "AGE_RANGE": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "INCOME_RANGE": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "EDUCATION_LEVEL": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "OCCUPATION_CATEGORY": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "HOUSEHOLD_SIZE": {"type": "NUMBER", "nullable": True, "primary_key": False},
+                        "HOMEOWNER_STATUS": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "LIFESTYLE_SEGMENT": {"type": "TEXT", "nullable": True, "primary_key": False}
+                    }
+                },
                 "SHOP_ORDERS": {
                     "fields": {
                         "ORDER_ID": {"type": "TEXT", "nullable": False, "primary_key": False},
                         "CUSTOMER_ID": {"type": "TEXT", "nullable": True, "primary_key": False},
                         "ORDER_DATE": {"type": "TIMESTAMP_NTZ", "nullable": True, "primary_key": False},
-                        "TOTAL_AMOUNT": {"type": "NUMBER", "nullable": True, "primary_key": False}
+                        "TOTAL_AMOUNT": {"type": "NUMBER", "nullable": True, "primary_key": False},
+                        "SUBTOTAL_AMOUNT": {"type": "NUMBER", "nullable": True, "primary_key": False},
+                        "TAX_AMOUNT": {"type": "NUMBER", "nullable": True, "primary_key": False},
+                        "SHIPPING_AMOUNT": {"type": "NUMBER", "nullable": True, "primary_key": False},
+                        "DISCOUNT_AMOUNT": {"type": "NUMBER", "nullable": True, "primary_key": False},
+                        "ORDER_STATUS": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "ATTRIBUTION_CHANNEL": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "FIRST_TOUCH_CHANNEL": {"type": "TEXT", "nullable": True, "primary_key": False}
                     }
                 },
                 "SHOP_ORDER_ITEMS": {
@@ -157,45 +378,77 @@ example_schemas = {
                         "ORDER_ID": {"type": "TEXT", "nullable": True, "primary_key": False},
                         "PRODUCT_ID": {"type": "TEXT", "nullable": True, "primary_key": False},
                         "QUANTITY": {"type": "NUMBER", "nullable": True, "primary_key": False},
-                        "PRICE": {"type": "NUMBER", "nullable": True, "primary_key": False}
+                        "PRICE": {"type": "NUMBER", "nullable": True, "primary_key": False},
+                        "DISCOUNT_AMOUNT": {"type": "NUMBER", "nullable": True, "primary_key": False},
+                        "TOTAL_AMOUNT": {"type": "NUMBER", "nullable": True, "primary_key": False}
                     }
                 },
                 "SHOP_PRODUCTS": {
                     "fields": {
                         "PRODUCT_ID": {"type": "TEXT", "nullable": False, "primary_key": False},
+                        "SKU": {"type": "TEXT", "nullable": True, "primary_key": False},
                         "NAME": {"type": "TEXT", "nullable": True, "primary_key": False},
                         "CATEGORY": {"type": "TEXT", "nullable": True, "primary_key": False},
-                        "BASE_PRICE": {"type": "NUMBER", "nullable": True, "primary_key": False}
+                        "SUBCATEGORY": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "BRAND": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "BASE_PRICE": {"type": "NUMBER", "nullable": True, "primary_key": False},
+                        "CURRENT_PRICE": {"type": "NUMBER", "nullable": True, "primary_key": False},
+                        "INVENTORY_QUANTITY": {"type": "NUMBER", "nullable": True, "primary_key": False}
+                    }
+                },
+                "WEB_SESSIONS": {
+                    "fields": {
+                        "SESSION_ID": {"type": "TEXT", "nullable": False, "primary_key": False},
+                        "CUSTOMER_ID": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "START_TIMESTAMP": {"type": "TIMESTAMP_NTZ", "nullable": True, "primary_key": False},
+                        "END_TIMESTAMP": {"type": "TIMESTAMP_NTZ", "nullable": True, "primary_key": False},
+                        "DEVICE_CATEGORY": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "DEVICE_OS": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "SOURCE": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "MEDIUM": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "LANDING_PAGE": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "SESSION_DURATION": {"type": "NUMBER", "nullable": True, "primary_key": False},
+                        "PAGE_VIEWS": {"type": "NUMBER", "nullable": True, "primary_key": False}
+                    }
+                },
+                "WEB_EVENTS": {
+                    "fields": {
+                        "EVENT_ID": {"type": "TEXT", "nullable": False, "primary_key": False},
+                        "SESSION_ID": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "CUSTOMER_ID": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "EVENT_TIMESTAMP": {"type": "TIMESTAMP_NTZ", "nullable": True, "primary_key": False},
+                        "EVENT_NAME": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "EVENT_CATEGORY": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "EVENT_ACTION": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "PAGE_URL": {"type": "TEXT", "nullable": True, "primary_key": False},
+                        "PRODUCT_ID": {"type": "TEXT", "nullable": True, "primary_key": False}
                     }
                 }
             }
-        }
-    },
-    "Sports Analytics Database": {
-        "base_schema": {
-            "tables": {
-                "FANS": {
-                    "fields": {
-                        "FAN_ID": {"type": "TEXT", "nullable": True, "primary_key": False},
-                        "FAN_SINCE": {"type": "TIMESTAMP_NTZ", "nullable": True, "primary_key": False},
-                        "LOYALTY_TIER": {"type": "TEXT", "nullable": True, "primary_key": False}
-                    }
+        },
+        "business_context": {
+            "description": "EcoShop is an e-commerce retailer offering products across multiple categories. This data model captures customer interactions across digital touchpoints, purchase behavior, and demographic information to drive personalized marketing and optimize the customer journey.",
+            "table_descriptions": {
+                "UNIFIED_CUSTOMERS": {
+                    "description": "Core customer profiles including identity, segment, acquisition channel, and engagement metrics. Contains summary information on lifetime value and purchase history."
                 },
-                "GAMES": {
-                    "fields": {
-                        "GAME_ID": {"type": "TEXT", "nullable": True, "primary_key": False},
-                        "OPPONENT": {"type": "TEXT", "nullable": True, "primary_key": False},
-                        "GAME_DATE": {"type": "TIMESTAMP_NTZ", "nullable": True, "primary_key": False},
-                        "ATTENDANCE": {"type": "NUMBER", "nullable": True, "primary_key": False}
-                    }
+                "CUSTOMER_DEMOGRAPHICS": {
+                    "description": "Detailed demographic data for customers including age range, income level, education, occupation, and lifestyle segments for targeted marketing."
                 },
-                "CONCESSION_SALES": {
-                    "fields": {
-                        "TRANSACTION_ID": {"type": "TEXT", "nullable": True, "primary_key": False},
-                        "GAME_ID": {"type": "TEXT", "nullable": True, "primary_key": False},
-                        "FAN_ID": {"type": "TEXT", "nullable": True, "primary_key": False},
-                        "TOTAL_AMOUNT": {"type": "FLOAT", "nullable": True, "primary_key": False}
-                    }
+                "SHOP_PRODUCTS": {
+                    "description": "Product catalog with detailed information on categories, pricing, and inventory status. Includes both current and base pricing for margin analysis."
+                },
+                "SHOP_ORDERS": {
+                    "description": "Transaction records with order totals, tax, shipping, and attribution channels. Contains order status and fulfillment information."
+                },
+                "SHOP_ORDER_ITEMS": {
+                    "description": "Line item details for each product purchased within orders, including quantity, price, and discounts at the item level."
+                },
+                "WEB_SESSIONS": {
+                    "description": "Customer browsing sessions on the e-commerce platform with device information, traffic source, and engagement metrics like duration and page views."
+                },
+                "WEB_EVENTS": {
+                    "description": "Granular user interaction events within web sessions, including page views, product views, cart additions, and purchases with timestamps."
                 }
             }
         }
