@@ -416,7 +416,7 @@ if schema_json and st.button("Generate Use Cases"):
 if "generated_use_cases" in st.session_state.use_case_results:
     st.markdown("## Identity Graph Use Cases")
     
-    tab1, tab2 = st.tabs(["Business Use Cases", "Technical Details"])
+    tab1, tab2 = st.tabs(["Report", "Data"])
     
     with tab1:
         st.markdown(st.session_state.use_case_results["generated_use_cases"])
@@ -430,7 +430,7 @@ if "generated_use_cases" in st.session_state.use_case_results:
     
     # Export options
     st.download_button(
-        label="Download Use Cases as Markdown",
+        label="Download Report as Markdown",
         data=st.session_state.use_case_results["generated_use_cases"],
         file_name="identity_graph_use_cases.md",
         mime="text/markdown"
