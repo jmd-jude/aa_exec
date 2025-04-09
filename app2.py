@@ -142,12 +142,12 @@ with st.sidebar:
     )
 
 # ----- MAIN AREA -----
-st.title("Super Identity Graph (SIG) Use Case Explorer")
+st.title("Super Identity Graph (SIG) Use Case Builder")
 
 # Expandable section with detailed description
 with st.expander("Click to Expand and Learn More About This Tool"):
     st.markdown("""
-    ## SIG Use Case Explorer
+    ## SIG Use Case Builder
     
     This app empowers marketers and data strategists to unlock the full value of their identity graph data through personalized, actionable use cases tailored to their specific business goals.
     
