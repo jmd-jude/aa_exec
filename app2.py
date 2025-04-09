@@ -278,7 +278,7 @@ with col1:
     
     data_freshness = st.selectbox(
         "Data freshness", 
-        ["Real-time", "Daily", "Weekly", "Monthly"],
+        ["API", "Daily", "Weekly", "Monthly"],
         help="Establishes recency parameters, influencing real-time vs. batch processing recommendations"
     )
 
