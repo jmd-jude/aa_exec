@@ -288,12 +288,12 @@ with st.sidebar:
     )
 
 # ----- MAIN AREA -----
-st.title("Super Identity Graph (SIG) Use Case Builder")
+st.title("Super Identity Graph (SIG) Explorer")
 
 # Expandable section with detailed description
 with st.expander("Click to Expand and Learn More About This Tool"):
     st.markdown("""
-    ## SIG Use Case Builder
+    ## SIG Use Case Explorer
     
     This app empowers marketers and data strategists to unlock the full value of their identity graph data through personalized, actionable use cases tailored to their specific business goals.
     
@@ -423,7 +423,7 @@ with col1:
     )
     
     data_freshness = st.selectbox(
-        "Data freshness", 
+        "Data Frequency", 
         ["API", "Daily", "Weekly", "Monthly"],
         help="Establishes recency parameters, influencing real-time vs. batch processing recommendations"
     )
