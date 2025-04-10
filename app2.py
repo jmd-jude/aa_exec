@@ -20,8 +20,8 @@ st.set_page_config(
 if "use_case_results" not in st.session_state:
     st.session_state.use_case_results = {}
 
-# System instructions for the LLM
-SYSTEM_INSTRUCTIONS = """You are an expert system designed to suggest valuable business use cases for identity graph data. 
+# Define both sets of system instructions
+STANDARD_SYSTEM_INSTRUCTIONS = """You are an expert system designed to suggest valuable business use cases for identity graph data. 
 Your core capability is analyzing identity graph schemas and suggesting actionable marketing and analytics opportunities.
 
 For each user selection, generate specific, high-value use cases that:
@@ -39,6 +39,140 @@ Focus particularly on use cases that:
 
 Structure your response with clear section headers and subsections. Use bullet points for clarity where appropriate. 
 Balance technical accuracy with business relevance and provide concrete examples rather than generic insights."""
+
+ENHANCED_SYSTEM_INSTRUCTIONS = """You are a senior marketing technology and data strategy consultant with extensive experience in customer data platforms, identity resolution, and omnichannel marketing orchestration.
+
+Your expertise lies in translating complex identity graph capabilities into actionable business use cases that marketing leaders can understand and implement. You understand both the technical aspects of identity data and the business objectives of modern marketing organizations.
+
+When generating use cases:
+
+1. BE SPECIFIC: Avoid generic marketing jargon and provide concrete, implementable ideas with clear business outcomes.
+
+2. BE REALISTIC: Consider technical feasibility, data quality requirements, and typical implementation challenges.
+
+3. BE COMPREHENSIVE: Address the full lifecycle from data requirements to activation and measurement.
+
+4. BE STRATEGIC: Focus on use cases that create sustainable competitive advantage, not just tactical improvements.
+
+5. BE BALANCED: Consider both quick wins (30-90 days) and strategic opportunities (6-12 months).
+
+For each use case, follow this structure:
+- [TITLE]: Concise, outcome-focused title (10 words or less)
+- [OBJECTIVE]: Clear business problem being solved (1-2 sentences)
+- [REQUIRED DATA]: Specific identity elements and other data needed
+- [IMPLEMENTATION]: Step-by-step approach in business-friendly language
+- [EXPECTED OUTCOMES]: Quantifiable impacts with realistic metrics
+- [CONSIDERATIONS]: Technical requirements, privacy concerns, or limitations
+
+Particularly valuable use cases typically:
+- Connect previously siloed customer journey touchpoints
+- Enable true 1:1 personalization at scale
+- Create new high-value targetable audience segments
+- Improve marketing attribution across channels
+- Enhance customer acquisition/retention strategies through better matching
+- Optimize marketing spend through improved identity resolution
+
+Focus on creating content that both CMOs and marketing technologists would find valuable."""
+
+# Define both prompt templates
+def standard_use_case_prompt(schema_json, industry_description, business_objective, customer_count, data_freshness, channels, privacy_requirement, available_identifiers, available_data):
+    return f"""
+    Generate high-value business use cases for an identity graph with the following context:
+    
+    SCHEMA:
+    {json.dumps(schema_json, indent=2)}
+    
+    BUSINESS CONTEXT:
+    - Business Description: {industry_description}
+    - Primary Objective: {business_objective}
+    - Customer Base Size: {customer_count:,}
+    - Data Freshness: {data_freshness}
+    - Marketing Channels: {', '.join(channels)}
+    - Privacy Requirements: {privacy_requirement}
+    
+    AVAILABLE IDENTITY DATA:
+    {', '.join(available_identifiers)}
+    
+    AVAILABLE BEHAVIORAL DATA:
+    {', '.join(available_data)}
+    
+    Please provide 3-5 specific, high-value use cases that would help achieve the business objective.
+    For each use case:
+    1. Provide a descriptive title and clear explanation of the business goal
+    2. List the specific identity graph data elements required
+    3. Outline implementation steps in business-friendly language
+    4. Estimate expected outcomes and business impact
+    5. Include any relevant considerations or limitations
+    
+    Format the response in markdown for readability with clear sections.
+    """
+
+def enhanced_use_case_prompt(schema_json, industry_description, business_objective, customer_count, data_freshness, channels, privacy_requirement, available_identifiers, available_data):
+    return f"""
+    Generate high-value business use cases for an identity graph with the following context:
+
+SCHEMA:
+{json.dumps(schema_json, indent=2)}
+
+BUSINESS CONTEXT:
+- Business Description: {industry_description}
+- Primary Objective: {business_objective}
+- Customer Base Size: {customer_count:,}
+- Data Freshness: {data_freshness}
+- Marketing Channels: {', '.join(channels)}
+- Privacy Requirements: {privacy_requirement}
+
+AVAILABLE IDENTITY DATA:
+{', '.join(available_identifiers)}
+
+AVAILABLE BEHAVIORAL DATA:
+{', '.join(available_data)}
+
+Please provide 3-5 specific, high-value use cases that would help achieve the business objective. Focus on use cases that would provide the greatest impact given the available data and business context.
+
+For each use case, follow this structure:
+
+## [TITLE: Concise, action-oriented title]
+
+### Objective
+[Clear explanation of the business goal and problem being solved]
+
+### Required Identity Graph Data
+- [List specific data elements required from the schema]
+- [Be specific about which identity types are needed]
+
+### Implementation Approach
+1. [First step in business-friendly language]
+2. [Second step...]
+3. [...]
+
+### Expected Business Impact
+- [Primary metric improvement with realistic estimate]
+- [Secondary benefits]
+- [Time-to-value estimate]
+
+### Technical Complexity
+- Implementation Difficulty: [Low/Medium/High]
+- Key Dependencies: [Any technical prerequisites]
+- Privacy Considerations: [Specific to the use case]
+
+At the end, include a "Quick Wins" section highlighting which use case(s) could be implemented most quickly with the highest ROI.
+
+Here's a PARTIAL example of the output format (but create your own content based on the specifics provided):
+
+## Cross-Device Journey Optimization
+
+### Objective
+Reduce cart abandonment by recognizing the same customer across devices and delivering personalized remarketing.
+
+### Required Identity Graph Data
+- Email_Hash from CUSTOMER_IDENTITIES
+- Device_ID from CUSTOMER_IDENTITIES
+- Cookie_ID from CUSTOMER_IDENTITIES
+- ...
+
+Format the entire response in well-structured markdown with clear headers and consistent formatting.
+"""
 
 # ----- SIDEBAR -----
 with st.sidebar:
@@ -59,6 +193,18 @@ with st.sidebar:
         }
         selected_display_name = st.selectbox("Select Model", model_display_names)
         selected_model = model_api_mapping[selected_display_name]
+    
+    # Prompt quality selection
+    st.markdown("---")
+    prompt_quality = st.radio(
+        "Prompt Quality", 
+        ["Standard", "Enhanced"], 
+        help="Compare different prompt strategies to see how they affect output quality"
+    )
+    
+    # If standard is selected, show a note about enhanced features
+    if prompt_quality == "Standard":
+        st.info("Enhanced prompts provide more detailed implementation guidance, technical complexity ratings, and ROI prioritization.")
     
     st.markdown("---")
     
@@ -314,37 +460,21 @@ if schema_json and st.button("Generate Use Cases"):
         if has_app_behavior: available_data.append("App Usage Data")
         if has_demographics: available_data.append("Demographic Data")
         
-        # Build our prompt
-        use_case_prompt = f"""
-        Generate high-value business use cases for an identity graph with the following context:
-        
-        SCHEMA:
-        {json.dumps(schema_json, indent=2)}
-        
-        BUSINESS CONTEXT:
-        - Business Description: {industry_description}
-        - Primary Objective: {business_objective}
-        - Customer Base Size: {customer_count:,}
-        - Data Freshness: {data_freshness}
-        - Marketing Channels: {', '.join(channels)}
-        - Privacy Requirements: {privacy_requirement}
-        
-        AVAILABLE IDENTITY DATA:
-        {', '.join(available_identifiers)}
-        
-        AVAILABLE BEHAVIORAL DATA:
-        {', '.join(available_data)}
-        
-        Please provide 3-5 specific, high-value use cases that would help achieve the business objective.
-        For each use case:
-        1. Provide a descriptive title and clear explanation of the business goal
-        2. List the specific identity graph data elements required
-        3. Outline implementation steps in business-friendly language
-        4. Estimate expected outcomes and business impact
-        5. Include any relevant considerations or limitations
-        
-        Format the response in markdown for readability with clear sections.
-        """
+        # Choose the appropriate system instructions and prompt based on user selection
+        if prompt_quality == "Standard":
+            system_instructions = STANDARD_SYSTEM_INSTRUCTIONS
+            use_case_prompt = standard_use_case_prompt(
+                schema_json, industry_description, business_objective, customer_count, 
+                data_freshness, channels, privacy_requirement, available_identifiers, 
+                available_data
+            )
+        else:  # Enhanced
+            system_instructions = ENHANCED_SYSTEM_INSTRUCTIONS
+            use_case_prompt = enhanced_use_case_prompt(
+                schema_json, industry_description, business_objective, customer_count, 
+                data_freshness, channels, privacy_requirement, available_identifiers, 
+                available_data
+            )
         
         try:
             # Call the appropriate API
@@ -357,7 +487,7 @@ if schema_json and st.button("Generate Use Cases"):
                 response = client.chat.completions.create(
                     model=selected_model,
                     messages=[
-                        {"role": "system", "content": SYSTEM_INSTRUCTIONS},
+                        {"role": "system", "content": system_instructions},
                         {"role": "user", "content": use_case_prompt}
                     ],
                     temperature=0.2
@@ -381,7 +511,7 @@ if schema_json and st.button("Generate Use Cases"):
                             max_tokens=4000,
                             temperature=0.2,
                             messages=[{"role": "user", "content": use_case_prompt}],
-                            system=SYSTEM_INSTRUCTIONS
+                            system=system_instructions
                         )
                         
                         result = response.content[0].text
@@ -404,7 +534,8 @@ if schema_json and st.button("Generate Use Cases"):
                         "available_identifiers": available_identifiers,
                         "available_data": available_data
                     },
-                    "generated_use_cases": result
+                    "generated_use_cases": result,
+                    "prompt_quality": prompt_quality  # Store which prompt quality was used
                 }
             else:
                 st.error("Unable to generate use cases. Please try again or select a different model.")
@@ -415,6 +546,13 @@ if schema_json and st.button("Generate Use Cases"):
 # Display results
 if "generated_use_cases" in st.session_state.use_case_results:
     st.markdown("## Identity Graph Use Cases")
+    
+    # Show which prompt quality was used
+    prompt_used = st.session_state.use_case_results.get("prompt_quality", "Enhanced")
+    if prompt_used == "Enhanced":
+        st.success("✨ Generated using Enhanced prompt quality")
+    else:
+        st.info("Generated using Standard prompt quality")
     
     tab1, tab2 = st.tabs(["Report", "Data"])
     
