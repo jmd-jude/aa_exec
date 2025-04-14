@@ -211,7 +211,7 @@ with st.sidebar:
     # Business objective selection
     st.markdown("### Business Objective")
     business_objective = st.selectbox(
-        "What are you trying to achieve?",
+        "Select a Strategy?",
         ["Customer Acquisition", "Conversion Optimization", "Customer Retention", "Cross-sell & Upsell", "Audience Creation"],
         help="Focuses the recommendations on specific goals, ensuring relevance to your current business priorities"
     )
@@ -222,13 +222,13 @@ with st.sidebar:
         "Describe your business and specific goals",
         placeholder="Example: We're a regional bank focusing on small businesses. We want to identify customers likely to need additional financial products.",
         height=100,
-        help="Allows you to describe your specific business situation, goals, and challenges, enabling highly personalized recommendations"
+        help="Describe your specific business situation, goals, and challenges for highly personalized recommendations"
     )
     
     # Data availability checkboxes
     st.markdown("### Available Identity Data")
     has_email = st.checkbox(
-        "Email Addresses", 
+        "Email Addresses/HEMs", 
         value=True,
         help="Email addresses are powerful identifiers that connect online and offline data"
     )
