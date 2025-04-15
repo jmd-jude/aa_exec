@@ -374,14 +374,41 @@
             <section id="implementation" class="section implementation">
                 <h2>Implementation Approach: How Obi Thinks</h2>
                 
-                <p>
-                    Obi translates complex policy into a real-time reasoning process that feels like talking to a smart, supportive guide. Unlike typical chatbots, Obi maintains a comprehensive understanding of each user's specific situation across the entire conversation.
-                </p>
-                
                 <h3>Creating Stateful Conversations with Stateless Technology</h3>
                 
                 <p>
-                    Large language models (LLMs) are inherently stateless—processing each message without retaining memory of previous interactions. To overcome this limitation, Obi's architecture implements three critical components:
+                    Large language models (LLMs) are inherently <strong>stateless</strong>—processing each message without retaining memory of previous interactions. Yet government services require continuous, reliable interactions that track user details and follow complex policy rules.
+                </p>
+                
+                <p>
+                    Our implementation addresses this fundamental challenge through three critical components that together create the illusion of memory and reasoning:
+                </p>
+                
+                <div class="component-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin: 2rem 0;">
+                    <div class="component-box" style="background-color: #f8f9fa; padding: 1.5rem; border-radius: 0.5rem; border-left: 4px solid #4F46E5;">
+                        <h4 style="color: #4338CA; margin-bottom: 0.5rem;">1. State Management</h4>
+                        <p>Structured flags that track key user information across conversation turns</p>
+                    </div>
+                    
+                    <div class="component-box" style="background-color: #f8f9fa; padding: 1.5rem; border-radius: 0.5rem; border-left: 4px solid #4F46E5;">
+                        <h4 style="color: #4338CA; margin-bottom: 0.5rem;">2. Journey Orchestration</h4>
+                        <p>Logic that determines what phase of the process users are in and what comes next</p>
+                    </div>
+                    
+                    <div class="component-box" style="background-color: #f8f9fa; padding: 1.5rem; border-radius: 0.5rem; border-left: 4px solid #4F46E5;">
+                        <h4 style="color: #4338CA; margin-bottom: 0.5rem;">3. Context Enrichment</h4>
+                        <p>Policy guidelines and conversation history provided to the LLM at each turn</p>
+                    </div>
+                </div>
+                
+                <p>
+                    This architecture transforms one-off AI interactions into coherent conversations where the system reliably "remembers" critical details and guides users through complex government requirements.
+                </p>
+                
+                <h3>Seeing the System in Action</h3>
+                
+                <p>
+                    The diagram below illustrates how Obi maintains state across conversation turns, showing the complete loop of user input, state tracking, LLM processing, and response generation:
                 </p>
                 
                 <div class="diagram-container">
@@ -401,7 +428,7 @@
                         <!-- User input -->
                         <rect x="50" y="130" width="250" height="60" rx="10" ry="10" fill="#e8f4fc" stroke="#3498db" stroke-width="2"/>
                         <text x="70" y="160" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2c3e50">USER:</text>
-                        <text x="120" y="160" font-family="Arial, sans-serif" font-size="14" fill="#2c3e50">"I changed my name after getting married."</text>
+                        <text x="120" y="160" font-family="Arial, sans-serif" font-size="14" fill="#2c3e50">"I changed my name after..."</text>
                         
                         <!-- Internal state before -->
                         <rect x="50" y="200" width="250" height="60" rx="10" ry="10" fill="#fff" stroke="#95a5a6" stroke-width="2" stroke-dasharray="5,5"/>
@@ -419,7 +446,7 @@
                         <!-- LLM output -->
                         <rect x="650" y="130" width="200" height="60" rx="10" ry="10" fill="#ebf5e8" stroke="#27ae60" stroke-width="2"/>
                         <text x="670" y="160" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2c3e50">LLM RESPONSE:</text>
-                        <text x="670" y="180" font-family="Arial, sans-serif" font-size="12" fill="#2c3e50">"You'll need your marriage certificate..."</text>
+                        <text x="670" y="180" font-family="Arial, sans-serif" font-size="12" fill="#2c3e50">"You'll need your marriage cert..."</text>
                         
                         <!-- Updated state -->
                         <rect x="650" y="200" width="200" height="60" rx="10" ry="10" fill="#fef9e7" stroke="#f39c12" stroke-width="2"/>
@@ -429,7 +456,7 @@
                         <!-- Obi's reply -->
                         <rect x="350" y="270" width="250" height="60" rx="10" ry="10" fill="#d1f5e9" stroke="#1abc9c" stroke-width="2"/>
                         <text x="370" y="300" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2c3e50">OBI TO USER:</text>
-                        <text x="370" y="320" font-family="Arial, sans-serif" font-size="12" fill="#2c3e50">"Thanks for letting me know. You'll need to bring your certified marriage certificate."</text>
+                        <text x="370" y="320" font-family="Arial, sans-serif" font-size="12" fill="#2c3e50">"Thanks for letting me know. You'll need..."</text>
                         
                         <!-- Flow arrows -->
                         <line x1="175" y1="190" x2="175" y2="200" stroke="#95a5a6" stroke-width="2"/>
@@ -473,7 +500,7 @@
                         <!-- LLM output -->
                         <rect x="650" y="390" width="200" height="60" rx="10" ry="10" fill="#ebf5e8" stroke="#27ae60" stroke-width="2"/>
                         <text x="670" y="420" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2c3e50">LLM RESPONSE:</text>
-                        <text x="670" y="440" font-family="Arial, sans-serif" font-size="12" fill="#2c3e50">"Perfect. Let's move to the form..."</text>
+                        <text x="670" y="440" font-family="Arial, sans-serif" font-size="12" fill="#2c3e50">"Perfect. Let's move to the form.."</text>
                         
                         <!-- Updated state -->
                         <rect x="650" y="460" width="200" height="60" rx="10" ry="10" fill="#fef9e7" stroke="#f39c12" stroke-width="2"/>
@@ -483,7 +510,7 @@
                         <!-- Obi's reply -->
                         <rect x="350" y="530" width="250" height="60" rx="10" ry="10" fill="#d1f5e9" stroke="#1abc9c" stroke-width="2"/>
                         <text x="370" y="560" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2c3e50">OBI TO USER:</text>
-                        <text x="370" y="580" font-family="Arial, sans-serif" font-size="12" fill="#2c3e50">"Perfect! Now let's complete the DS-11 form."</text>
+                        <text x="370" y="580" font-family="Arial, sans-serif" font-size="12" fill="#2c3e50">"Perfect! Now let's complete the DS-11..."</text>
                         
                         <!-- Flow arrows -->
                         <line x1="175" y1="450" x2="175" y2="460" stroke="#f39c12" stroke-width="2"/>
@@ -506,66 +533,70 @@
                     </svg>
                 </div>
                 
-                <h3>The Logic Engine in Action</h3>
+                <h3>State Management: The Core Innovation</h3>
                 
                 <p>
-                    At the core of Obi's architecture is a policy logic engine that translates complex government requirements into a dynamic decision-making system. Here's a simplified illustration of how Obi determines the appropriate conversation path:
+                    The success of Obi depends on maintaining a precise state object that tracks what we know about the user. This state isn't just a memory tool—it's the foundation for correct policy decisions and personalized guidance.
                 </p>
                 
-                <div class="code-block">
-if (passport_condition === "damaged" || passport_condition === "lost") {
-  application_path = "DS-11";
-  require_in_person = true;
-  coaching_module = "explain_disqualification";
-  
-  if (name_change && name_change_doc_certified) {
-    document_requirements.push("certified_name_change");
-    coaching_module += "_with_name_change";
-  }
-}
+                <div class="code-sections" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0;">
+                    <div>
+                        <h4 style="margin-bottom: 0.75rem;">State Flags</h4>
+                        <div class="code-block">
+{
+    "passport_condition": "damaged",
+    "name_change": true,
+    "has_name_change_doc": true,
+    "passport_lost": false,
+    "issued_within_15_years": true,
+    "travel_within_6_weeks": true
+    }
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 style="margin-bottom: 0.75rem;">Policy Logic</h4>
+                        <div class="code-block">
+        if (damaged || lost || >15yrs || under16 || 
+            name_change w/o doc || traveling soon) 
+        return DS-11
+            else 
+        return DS-82
+                        </div>
+                    </div>
                 </div>
                 
                 <p>
-                    This logic engine allows Obi to:
+                    When a user like Sarah mentions her passport is damaged, the system:
+                </p>
+                
+                <ol class="bullet-list">
+                    <li>Updates her state flags (<code>passport_condition: "damaged"</code>)</li>
+                    <li>Applies policy logic (damage triggers DS-11 requirement)</li>
+                    <li>Determines the next appropriate step in her journey (Phase 2: explanation)</li>
+                    <li>Enriches the LLM prompt with this context and policy requirements</li>
+                    <li>Generates a response that acknowledges her situation and guides her forward</li>
+                </ol>
+                
+                <p>
+                    This happens seamlessly between conversation turns, creating the illusion of a system that "remembers" everything about her situation.
+                </p>
+                
+                <h3>A Scalable Framework for Government Services</h3>
+                
+                <p>
+                    While passport renewal serves as our initial test case, this architecture provides a template for any government service:
                 </p>
                 
                 <ul class="bullet-list">
-                    <li>Weave multiple data points (damage, name change, urgency) into policy-based conclusions</li>
-                    <li>Anticipate disqualifications and pivot to the right path (e.g., DS-11)</li>
-                    <li>Carry context forward, so the user never has to repeat themselves</li>
-                    <li>Deliver a personalized flow that evolves along with each new detail</li>
-                </ul>
-                
-                <h3>Resilient, Real-World Conversations</h3>
-                
-                <p>
-                    Users rarely follow a neat, linear path. Obi's exception-handling design allows it to:
-                </p>
-                
-                <ul class="bullet-list">
-                    <li>Recover gracefully from contradictions — if the user corrects an earlier answer, Obi updates its state and re-routes the flow</li>
-                    <li>Handle multiple disqualifiers at once without overwhelming the user</li>
-                    <li>Stay reassuring — "You're not alone, here's what we can do next" instead of "You've failed"</li>
+                    <li><strong>Define the state flags</strong> relevant to each service (eligibility criteria, document requirements)</li>
+                    <li><strong>Map the policy logic</strong> that determines service paths</li>
+                    <li><strong>Create journey flows</strong> that guide users through the process</li>
+                    <li><strong>Design context enrichment</strong> to maximize LLM accuracy</li>
                 </ul>
                 
                 <p>
-                    For example, when a user discloses their passport is damaged halfway through, Obi doesn't just cut them off. It explains why they can't renew by mail, then immediately guides them to an in-person appointment with the right documents.
-                </p>
-                
-                <h3>From One Example to a Scalable System</h3>
-                
-                <p>
-                    While the passport renewal scenario highlights one conversational flow, Obi's underlying architecture is designed to handle dozens of variations:
-                </p>
-                
-                <ul class="bullet-list">
-                    <li>Stateful logic easily extends to name changes, lost passports, urgent travel, overseas applicants, and more</li>
-                    <li>Modular coaching blocks reuse policy logic across different services</li>
-                    <li>Persistent memory means Obi can pick up right where the user left off—even across sessions</li>
-                </ul>
-                
-                <p>
-                    By combining dynamic state tracking with empathetic coaching, Obi transforms what could be a frustrating, form-based chore into a supportive conversation—one that yields real operational savings and a vastly better user experience.
+                    Our POC will validate this approach and provide a model for estimating implementation effort across multiple services. This creates a repeatable framework that can transform citizen experiences across GET's government identity portfolio.
                 </p>
             </section>
 
@@ -584,7 +615,7 @@ if (passport_condition === "damaged" || passport_condition === "lost") {
                         <source src="./assets/obi-sarah-demo.mp3" type="audio/mpeg">
                         Your browser does not support the audio element.
                     </audio>
-                    <p class="audio-note" style="font-size: 0.9rem; color: var(--text-light); margin-top: 0.5rem;">Note: Place the audio file at './assets/obi-sarah-demo.mp3' in your GitHub repository.</p>
+                    <p class="audio-note" style="font-size: 0.9rem; color: var(--text-light); margin-top: 0.5rem;"></p>
                 </div>
                 
                 <h3>Dialogue Script</h3>
@@ -964,7 +995,7 @@ if (passport_condition === "damaged" || passport_condition === "lost") {
             </section>
 
             <footer class="footer">
-                <p>© 2025 GET Group | Obi AI Companion for Digital Government Services</p>
+                <p>© 2025 GET Group | JMD-AI</p>
             </footer>
         </main>
     </div>
