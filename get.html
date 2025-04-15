@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obi: A Human-Centered AI Companion</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4F46E5;
+            --primary-dark: #4338CA;
+            --background: #F9FAFB;
+            --card-bg: #FFFFFF;
+            --text: #1F2937;
+            --text-light: #6B7280;
+            --border: #E5E7EB;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background-color: white;
+            padding: 2rem 0;
+            border-bottom: 1px solid var(--border);
+            box-shadow: var(--shadow);
+        }
+
+        .header-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.75rem;
+            margin-bottom: 0.75rem;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--primary-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            max-width: 700px;
+        }
+
+        /* Navigation */
+        .navigation {
+            display: flex;
+            justify-content: center;
+            background-color: white;
+            padding: 0.75rem 2rem;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .nav-button {
+            background: none;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            margin: 0 0.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+            border-bottom: 2px solid transparent;
+            font-weight: 500;
+            transition: all 0.2s;
+            font-size: 1rem;
+        }
+
+        .nav-button:hover {
+            color: var(--primary);
+        }
+
+        .nav-button.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        /* Content */
+        .content {
+            flex: 1;
+            padding: 3rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .section {
+            display: none;
+            background-color: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 0.5rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        /* Executive Summary Section */
+        .exec-summary h2 {
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-dark);
+        }
+
+        .exec-summary p {
+            font-size: 1.125rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .callout {
+            background-color: var(--background);
+            border-left: 4px solid var(--primary);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            font-size: 1.125rem;
+        }
+
+        /* Implementation Section */
+        .implementation h2 {
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-dark);
+        }
+
+        .implementation h3 {
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .implementation p {
+            font-size: 1.125rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .code-block {
+            background-color: #f1f5f9;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            font-family: monospace;
+            overflow-x: auto;
+            margin-bottom: 2rem;
+            white-space: pre;
+            color: #334155;
+        }
+
+        .diagram-container {
+            width: 100%;
+            max-width: 900px;
+            margin: 2rem auto;
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+
+        .bullet-list {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+
+        .bullet-list li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Demo Section */
+        .demo-section h2 {
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-dark);
+        }
+
+        .demo-section h3 {
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .conversation-script {
+            background-color: var(--background);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin-bottom: 2rem;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .dialogue {
+            margin-bottom: 1.5rem;
+        }
+
+        .dialogue .speaker {
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .dialogue .narrator {
+            font-style: italic;
+            color: var(--text-light);
+        }
+
+        .audio-player {
+            margin: 2rem 0;
+            width: 100%;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: white;
+            padding: 1.5rem 2rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .content {
+                padding: 2rem 1rem;
+            }
+            
+            .section {
+                padding: 1.5rem;
+            }
+            
+            .navigation {
+                flex-wrap: wrap;
+            }
+            
+            .nav-button {
+                padding: 0.5rem 1rem;
+                margin: 0.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-container">
+                <h1>Obi: A Human-Centered AI Companion</h1>
+                <p class="subtitle">Transforming Government Services Through Intelligent Conversation</p>
+            </div>
+        </header>
+
+        <nav class="navigation">
+            <button class="nav-button active" data-section="exec-summary">Executive Summary</button>
+            <button class="nav-button" data-section="implementation">Implementation Approach</button>
+            <button class="nav-button" data-section="demo">Conversation Demo</button>
+        </nav>
+
+        <main class="content">
+            <!-- Executive Summary Section -->
+            <section id="exec-summary" class="section exec-summary active">
+                <h2>Executive Summary</h2>
+                
+                <h3>Strategic Overview</h3>
+                <p>
+                    GET has established a mature market presence in digital identity systems and government infrastructure, yet citizens continue to struggle with complex processes. Common services like passport renewal—where one in five appointments fail due to documentation errors—remain confusing for users. Obi represents an opportunity to bridge this gap by integrating an AI customer experience layer with GET's core digital identity offerings, transforming frustrating government interactions into guided, accessible experiences.
+                </p>
+                
+                <h3>Understanding the AI Implementation Challenge</h3>
+                <p>
+                    While modern AI systems create the impression of having continuous memory and awareness, they are fundamentally <strong>stateless</strong>—meaning they don't inherently "remember" previous interactions or maintain an understanding of where users are in multi-step processes. Creating the reliable, guided experience that government services require demands a carefully engineered architecture with three critical components:
+                </p>
+                
+                <ul class="bullet-list">
+                    <li><strong>State Management:</strong> A structured system to maintain and update essential facts about the user throughout their journey (e.g., passport condition, name change status, documentation availability)</li>
+                    <li><strong>Journey Orchestration:</strong> Logic to track and manage where users are in multi-step processes, ensuring they receive appropriate guidance at each stage</li>
+                    <li><strong>Context Enrichment:</strong> Carefully crafted supplemental information that maximizes the AI's ability to provide reliable, accurate responses for specific government service scenarios</li>
+                </ul>
+                
+                <p>
+                    This architectural approach is what enables the seemingly conversational, knowledgeable experience users expect, while addressing the underlying technical constraints of AI systems.
+                </p>
+                
+                <h3>Solution Approach</h3>
+                <p>
+                    Our assessment indicates that with these three components properly implemented, AI can effectively enhance GET's existing systems while achieving the reliability threshold required for government services. We've validated this approach using passport renewal as a strategic test case because it features:
+                </p>
+                
+                <ul class="bullet-list">
+                    <li><strong>Deterministic Policy Logic:</strong> Clear, published guidelines with conditional requirements</li>
+                    <li><strong>Structured Document Requirements:</strong> Standardized validation criteria similar to other GET identity services</li>
+                    <li><strong>Discrete Path Branching:</strong> Well-defined user journeys that can become templates for other services</li>
+                    <li><strong>Clear Success Metrics:</strong> Objectively measurable outcomes for technical performance and business impact</li>
+                </ul>
+                
+                <h3>Recommended Path Forward</h3>
+                <p>
+                    We recommend developing a Proof of Concept to demonstrate how Obi can enhance GET's existing services while validating two critical hypotheses:
+                </p>
+                
+                <ol class="bullet-list">
+                    <li>That our proposed architecture for state management, journey orchestration, and context enrichment will reliably produce the user experiences required to meet the high threshold of reliability for government services</li>
+                    <li>A scalable model for estimating the effort required to extend this architecture across multiple services, including potential automation methods that could become valuable intellectual property</li>
+                </ol>
+                
+                <p>
+                    The POC will deliver:
+                </p>
+                
+                <ul class="bullet-list">
+                    <li>A fully functional prototype covering key phases of the passport renewal experience</li>
+                    <li>Three representative user scenarios demonstrating different paths through the system</li>
+                    <li>Architecture documentation showing how Obi integrates with GET's existing identity verification systems</li>
+                    <li>A model for estimating implementation effort across additional government services</li>
+                </ul>
+                
+                <h3>Benefits</h3>
+                <ul class="bullet-list">
+                    <li><strong>Strategic Market Evolution:</strong> Expands GET's offerings beyond physical credentials to include AI-enhanced digital experiences</li>
+                    <li><strong>Competitive Differentiation:</strong> Addresses the usability gap that pure technology players cannot solve</li>
+                    <li><strong>Scalable Revenue Opportunities:</strong> Creates a template for enhancing multiple government services</li>
+                    <li><strong>Measurable Operational Improvements:</strong> Delivers quantifiable reductions in failed transactions and support costs</li>
+                    <li><strong>Enhanced Citizen Satisfaction:</strong> Transforms frustrating government interactions into guided experiences</li>
+                </ul>
+                
+                <p>
+                    The Obi AI companion represents more than a passport renewal solution—it demonstrates how GET can evolve its core business while establishing a repeatable approach to AI implementation that can scale across its government service portfolio.
+                </p>
+            </section>
+
+            <!-- Implementation Approach Section -->
+            <section id="implementation" class="section implementation">
+                <h2>Implementation Approach: How Obi Thinks</h2>
+                
+                <p>
+                    Obi translates complex policy into a real-time reasoning process that feels like talking to a smart, supportive guide. Unlike typical chatbots, Obi maintains a comprehensive understanding of each user's specific situation across the entire conversation.
+                </p>
+                
+                <h3>Creating Stateful Conversations with Stateless Technology</h3>
+                
+                <p>
+                    Large language models (LLMs) are inherently stateless—processing each message without retaining memory of previous interactions. To overcome this limitation, Obi's architecture implements three critical components:
+                </p>
+                
+                <div class="diagram-container">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600">
+                        <!-- Background -->
+                        <rect width="900" height="600" fill="#f8f9fa" rx="10" ry="10"/>
+                        
+                        <!-- Title -->
+                        <text x="450" y="40" font-family="Arial, sans-serif" font-size="24" text-anchor="middle" font-weight="bold" fill="#2c3e50">Obi's Reasoning Loop: How State Is Maintained Across Turns</text>
+                        
+                        <!-- TURN 1 -->
+                        <!-- Timeline marker -->
+                        <circle cx="70" cy="100" r="15" fill="#3498db"/>
+                        <text x="70" y="105" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" font-weight="bold" fill="white">1</text>
+                        <text x="100" y="105" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#3498db">TURN 1</text>
+                        
+                        <!-- User input -->
+                        <rect x="50" y="130" width="250" height="60" rx="10" ry="10" fill="#e8f4fc" stroke="#3498db" stroke-width="2"/>
+                        <text x="70" y="160" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2c3e50">USER:</text>
+                        <text x="120" y="160" font-family="Arial, sans-serif" font-size="14" fill="#2c3e50">"I changed my name after getting married."</text>
+                        
+                        <!-- Internal state before -->
+                        <rect x="50" y="200" width="250" height="60" rx="10" ry="10" fill="#fff" stroke="#95a5a6" stroke-width="2" stroke-dasharray="5,5"/>
+                        <text x="70" y="230" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2c3e50">INITIAL STATE:</text>
+                        <text x="180" y="230" font-family="Arial, sans-serif" font-size="14" fill="#95a5a6">{name_change: null}</text>
+                        
+                        <!-- Prompt package -->
+                        <rect x="350" y="130" width="250" height="130" rx="10" ry="10" fill="#d6eaf8" stroke="#2980b9" stroke-width="2"/>
+                        <text x="370" y="155" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2c3e50">PROMPT TO LLM:</text>
+                        <text x="370" y="180" font-family="Arial, sans-serif" font-size="12" fill="#2c3e50">• System instructions</text>
+                        <text x="370" y="200" font-family="Arial, sans-serif" font-size="12" fill="#2c3e50">• User input</text>
+                        <text x="370" y="220" font-family="Arial, sans-serif" font-size="12" fill="#2c3e50">• Current state: {name_change: null}</text>
+                        <text x="370" y="240" font-family="Arial, sans-serif" font-size="12" fill="#2c3e50">• Policy rules & guidelines</text>
+                        
+                        <!-- LLM output -->
+                        <rect x="650" y="130" width="200" height="60" rx="10" ry="10" fill="#ebf5e8" stroke="#27ae60" stroke-width="2"/>
+                        <text x="670" y="160" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2c3e50">LLM RESPONSE:</text>
+                        <text x="670" y="180" font-family="Arial, sans-serif" font-size="12" fill="#2c3e50">"You'll need your marriage certificate..."</text>
+                        
+                        <!-- Updated state -->
+                        <rect x="650" y="200" width="200" height="60" rx="10" ry="10" fill="#fef9e7" stroke="#f39c12" stroke-width="2"/>
+                        <text x="670" y="230" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2c3e50">UPDATED STATE:</text>
+                        <text x="670" y="250" font-family="Arial, sans-serif" font-size="12" fill="#2c3e50">{name_change: true}</text>
+                        
+                        <!-- Obi's reply -->
+                        <rect x="350" y="270" width="250" height="60" rx="10" ry="10" fill="#d1f5e9" stroke="#1abc9c" stroke-width="2"/>
+                        <text x="370" y="300" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2c3e50">OBI TO USER:</text>
+                        <text x="370" y="320" font-family="Arial, sans-serif" font-size="12" fill="#2c3e50">"Thanks for letting me know. You'll need to bring your certified marriage certificate."</text>
+                        
+                        <!-- Flow arrows -->
+                        <line x1="175" y1="190" x2="175" y2="200" stroke="#95a5a6" stroke-width="2"/>
+                        <polygon points="175,200 170,190 180,190" fill="#95a5a6"/>
+                        
+                        <line x1="300" y1="160" x2="350" y2="160" stroke="#2980b9" stroke-width="2"/>
+                        <polygon points="350,160 340,155 340,165" fill="#2980b9"/>
+                        
+                        <line x1="600" y1="160" x2="650" y2="160" stroke="#27ae60" stroke-width="2"/>
+                        <polygon points="650,160 640,155 640,165" fill="#27ae60"/>
+                        
+                        <line x1="750" y1="260" x2="750" y2="270" stroke="#f39c12" stroke-width="2"/>
+                        <line x1="750" y1="270" x2="600" y2="270" stroke="#f39c12" stroke-width="2"/>
+                        <line x1="600" y1="270" x2="600" y2="300" stroke="#f39c12" stroke-width="2"/>
+                        <polygon points="600,300 595,290 605,290" fill="#f39c12"/>
+                        
+                        <!-- TURN 2 -->
+                        <!-- Timeline marker -->
+                        <circle cx="70" cy="360" r="15" fill="#3498db"/>
+                        <text x="70" y="365" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" font-weight="bold" fill="white">2</text>
+                        <text x="100" y="365" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#3498db">TURN 2</text>
+                        
+                        <!-- User input -->
+                        <rect x="50" y="390" width="250" height="60" rx="10" ry="10" fill="#e8f4fc" stroke="#3498db" stroke-width="2"/>
+                        <text x="70" y="420" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2c3e50">USER:</text>
+                        <text x="120" y="420" font-family="Arial, sans-serif" font-size="14" fill="#2c3e50">"I have the certified copy."</text>
+                        
+                        <!-- Internal state before -->
+                        <rect x="50" y="460" width="250" height="60" rx="10" ry="10" fill="#fef9e7" stroke="#f39c12" stroke-width="2"/>
+                        <text x="70" y="490" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2c3e50">CURRENT STATE:</text>
+                        <text x="70" y="510" font-family="Arial, sans-serif" font-size="12" fill="#2c3e50">{name_change: true, doc_certified: null}</text>
+                        
+                        <!-- Prompt package -->
+                        <rect x="350" y="390" width="250" height="130" rx="10" ry="10" fill="#d6eaf8" stroke="#2980b9" stroke-width="2"/>
+                        <text x="370" y="415" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2c3e50">PROMPT TO LLM:</text>
+                        <text x="370" y="435" font-family="Arial, sans-serif" font-size="12" fill="#2c3e50">• Previous conversation</text>
+                        <text x="370" y="455" font-family="Arial, sans-serif" font-size="12" fill="#2c3e50">• New user input</text>
+                        <text x="370" y="475" font-family="Arial, sans-serif" font-size="12" fill="#2c3e50">• Current state with name_change: true</text>
+                        <text x="370" y="495" font-family="Arial, sans-serif" font-size="12" fill="#2c3e50">• Document requirements policy</text>
+                        
+                        <!-- LLM output -->
+                        <rect x="650" y="390" width="200" height="60" rx="10" ry="10" fill="#ebf5e8" stroke="#27ae60" stroke-width="2"/>
+                        <text x="670" y="420" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2c3e50">LLM RESPONSE:</text>
+                        <text x="670" y="440" font-family="Arial, sans-serif" font-size="12" fill="#2c3e50">"Perfect. Let's move to the form..."</text>
+                        
+                        <!-- Updated state -->
+                        <rect x="650" y="460" width="200" height="60" rx="10" ry="10" fill="#fef9e7" stroke="#f39c12" stroke-width="2"/>
+                        <text x="670" y="490" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2c3e50">UPDATED STATE:</text>
+                        <text x="670" y="510" font-family="Arial, sans-serif" font-size="12" fill="#2c3e50">{doc_certified: true}</text>
+                        
+                        <!-- Obi's reply -->
+                        <rect x="350" y="530" width="250" height="60" rx="10" ry="10" fill="#d1f5e9" stroke="#1abc9c" stroke-width="2"/>
+                        <text x="370" y="560" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2c3e50">OBI TO USER:</text>
+                        <text x="370" y="580" font-family="Arial, sans-serif" font-size="12" fill="#2c3e50">"Perfect! Now let's complete the DS-11 form."</text>
+                        
+                        <!-- Flow arrows -->
+                        <line x1="175" y1="450" x2="175" y2="460" stroke="#f39c12" stroke-width="2"/>
+                        <polygon points="175,460 170,450 180,450" fill="#f39c12"/>
+                        
+                        <line x1="300" y1="420" x2="350" y2="420" stroke="#2980b9" stroke-width="2"/>
+                        <polygon points="350,420 340,415 340,425" fill="#2980b9"/>
+                        
+                        <line x1="600" y1="420" x2="650" y2="420" stroke="#27ae60" stroke-width="2"/>
+                        <polygon points="650,420 640,415 640,425" fill="#27ae60"/>
+                        
+                        <line x1="750" y1="520" x2="750" y2="530" stroke="#f39c12" stroke-width="2"/>
+                        <line x1="750" y1="530" x2="600" y2="530" stroke="#f39c12" stroke-width="2"/>
+                        <line x1="600" y1="530" x2="600" y2="560" stroke="#f39c12" stroke-width="2"/>
+                        <polygon points="600,560 595,550 605,550" fill="#f39c12"/>
+                        
+                        <!-- Connecting the turns -->
+                        <line x1="475" y1="330" x2="475" y2="390" stroke="#7f8c8d" stroke-width="2" stroke-dasharray="5,5"/>
+                        <polygon points="475,390 470,380 480,380" fill="#7f8c8d"/>
+                    </svg>
+                </div>
+                
+                <h3>The Logic Engine in Action</h3>
+                
+                <p>
+                    At the core of Obi's architecture is a policy logic engine that translates complex government requirements into a dynamic decision-making system. Here's a simplified illustration of how Obi determines the appropriate conversation path:
+                </p>
+                
+                <div class="code-block">
+if (passport_condition === "damaged" || passport_condition === "lost") {
+  application_path = "DS-11";
+  require_in_person = true;
+  coaching_module = "explain_disqualification";
+  
+  if (name_change && name_change_doc_certified) {
+    document_requirements.push("certified_name_change");
+    coaching_module += "_with_name_change";
+  }
+}
+                </div>
+                
+                <p>
+                    This logic engine allows Obi to:
+                </p>
+                
+                <ul class="bullet-list">
+                    <li>Weave multiple data points (damage, name change, urgency) into policy-based conclusions</li>
+                    <li>Anticipate disqualifications and pivot to the right path (e.g., DS-11)</li>
+                    <li>Carry context forward, so the user never has to repeat themselves</li>
+                    <li>Deliver a personalized flow that evolves along with each new detail</li>
+                </ul>
+                
+                <h3>Resilient, Real-World Conversations</h3>
+                
+                <p>
+                    Users rarely follow a neat, linear path. Obi's exception-handling design allows it to:
+                </p>
+                
+                <ul class="bullet-list">
+                    <li>Recover gracefully from contradictions — if the user corrects an earlier answer, Obi updates its state and re-routes the flow</li>
+                    <li>Handle multiple disqualifiers at once without overwhelming the user</li>
+                    <li>Stay reassuring — "You're not alone, here's what we can do next" instead of "You've failed"</li>
+                </ul>
+                
+                <p>
+                    For example, when a user discloses their passport is damaged halfway through, Obi doesn't just cut them off. It explains why they can't renew by mail, then immediately guides them to an in-person appointment with the right documents.
+                </p>
+                
+                <h3>From One Example to a Scalable System</h3>
+                
+                <p>
+                    While the passport renewal scenario highlights one conversational flow, Obi's underlying architecture is designed to handle dozens of variations:
+                </p>
+                
+                <ul class="bullet-list">
+                    <li>Stateful logic easily extends to name changes, lost passports, urgent travel, overseas applicants, and more</li>
+                    <li>Modular coaching blocks reuse policy logic across different services</li>
+                    <li>Persistent memory means Obi can pick up right where the user left off—even across sessions</li>
+                </ul>
+                
+                <p>
+                    By combining dynamic state tracking with empathetic coaching, Obi transforms what could be a frustrating, form-based chore into a supportive conversation—one that yields real operational savings and a vastly better user experience.
+                </p>
+            </section>
+
+            <!-- Demo Section -->
+            <section id="demo" class="section demo-section">
+                <h2>Conversation Demo</h2>
+                
+                <p>
+                    Experience how Obi guides users through complex government processes with this demonstration dialogue featuring Sarah, who needs to renew her passport but has two complications: document damage and a recent name change.
+                </p>
+                
+                <div class="audio-player">
+                    <h3>Listen to the Demonstration</h3>
+                    <p>Hear how Obi's conversational AI guides Sarah through her passport renewal process:</p>
+                    <audio controls style="width: 100%; margin-top: 1rem;">
+                        <source src="./assets/obi-sarah-demo.mp3" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                    <p class="audio-note" style="font-size: 0.9rem; color: var(--text-light); margin-top: 0.5rem;">Note: Place the audio file at './assets/obi-sarah-demo.mp3' in your GitHub repository.</p>
+                </div>
+                
+                <h3>Dialogue Script</h3>
+                <p>Below is the complete script of the interaction between Obi, Sarah, and the Narrator:</p>
+                
+                <div class="conversation-script">
+                    <div class="dialogue">
+                        <p class="narrator">Narrator (Intro): Welcome to a demonstration of Obi, GET Group's AI passport renewal assistant. You'll hear Obi guide Sarah, who needs to renew her passport but has two complications: document damage and a recent name change. Phase 1 begins with a structured eligibility screening. Obi checks Sarah's age, travel plans, passport status, and document condition to determine if she qualifies for mail renewal.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> Hi Sarah, I'll help you figure out if you're eligible to renew your passport online. Let's go through a few quick questions together.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> First — can I ask your age?</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Sarah:</span> I'm 28.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> Perfect. You're over 25, which is one of the basic requirements for online renewal.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> Do you still have your most recent U.S. passport in your possession?</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Sarah:</span> Yes.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> Great. Has your passport expired within the last 5 years, or is it still valid?</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Sarah:</span> It expired a few months ago.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> That's totally fine — as long as it was issued within the last 15 years, we're still good.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> Do you happen to know when your last passport was issued?</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Sarah:</span> March 2016.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> Perfect — that's within the 15-year window. We're still on track.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> Were you at least 16 years old when your most recent passport was issued?</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Sarah:</span> Yes, I was in college.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> Great — that makes you eligible on that front too.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> Are you planning to travel within the next 6 weeks?</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Sarah:</span> No, not until summer.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> Great — online renewal isn't available if you're traveling too soon, so that's another box checked.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> Are you currently in the United States or one of its territories?</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Sarah:</span> Yes — I'm in Boston.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> Perfect.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> Now, does your name match exactly what's on your most recent passport?</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Sarah:</span> Actually, I got married last year and changed my name.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> Thanks for mentioning that — I'll make a note so we can go over what that means for your renewal in just a bit. It's totally fine if your name has changed — we'll just check for documentation.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> Is your passport in good condition — meaning no tears, missing pages, or water damage?</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Sarah:</span> Well, it's a little damaged. There's a tear on the photo page and some water marks from last year.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> Thanks for telling me — that's important to check. Because of the damage you described, I'll need to walk you through a different application path. I'll guide you the whole way.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p class="narrator">Narrator: Obi has identified that Sarah can't renew by mail due to her damaged passport and name change. Now Obi will explain why and guide her to the right solution.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> Alright Sarah, thanks again for walking through all those questions. You're doing great.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> Based on what you've shared, there are a couple of things that make you ineligible for renewing your passport online — or by mail.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Sarah:</span> Oh no! What's going on?</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> First, your passport has some water damage and a tear on the photo page. That qualifies as significant damage, which means the State Department can't accept it for renewal. You'll need to apply in person with a different form.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> Second, your name has changed since your last passport — and that's totally fine. You'll just need to bring certified documentation of your name change, like your marriage certificate. Do you have that?</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Sarah:</span> Yes, I have a certified copy with a seal.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> Perfect — that's exactly what's needed.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Sarah:</span> So what happens now?</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> You'll be applying for a new passport in person using Form DS-11. That's the standard process anytime a passport is damaged or missing key info.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> I'll walk you through everything step by step — what to bring, where to go, how to schedule an appointment, and how to make sure you're ready for expedited service, since you're traveling in 4 weeks.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Sarah:</span> Okay — that's really helpful.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> You've got this. Let's get everything prepared so your appointment goes smoothly.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p class="narrator">Narrator: Now Obi will help Sarah prepare all her required documents.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> Let's make sure you've got everything you need for your passport appointment.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> First — your current passport. Even though it's a little damaged, you'll need to bring it with you. It will serve as your proof of citizenship.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> If you'd like, you can upload a quick photo of the ID page so I can double-check the info.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Sarah:</span> Sure, just a moment...</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p class="narrator">Sarah takes a photo of her passport ID page and uploads it to Obi.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> Got it — looks like the data is still legible. Just be sure to bring the physical booklet with you to your appointment.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> Next up — your new passport photo. It should be 2x2 inches, in color, on a white background, and taken within the last 6 months. No glasses, hats, or filters.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> Want to upload a photo so I can give it a quick check?</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Sarah:</span> Here it is.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p class="narrator">Sarah uploads her passport photo to Obi.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> This looks good — neutral expression, clear lighting, and proper framing. Make sure to bring a printed version on photo-quality paper.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> Since your name has changed since your last passport, you'll need to bring your certified marriage certificate — not a scan or photocopy.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> You can upload a photo now so I can make sure it's the right type.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Sarah:</span> Uploading now.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p class="narrator">Sarah uploads an image of her certified marriage certificate.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> Yep — that looks like a certified original with the official seal. You'll bring that with you, and the State Department will return it by mail after processing.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> Now let's confirm your government-issued photo ID. Most people use a driver's license, but a state ID or military ID works too. You'll need to bring the original — and a photocopy of the front and back.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> Do you have that ready?</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Sarah:</span> Yes — I have my license and a copy.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> Perfect. If you'd like, you can upload a quick photo of the front so I can make sure everything's clear.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Sarah:</span> Here you go.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p class="narrator">Sarah uploads a photo of her driver's license.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> Looks good — clear photo, valid date, and matching name. Be sure to bring the original and the copy to your appointment.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> Now let's talk about the DS-11 form. This is the one you'll complete for your new passport.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> You can fill it out online and print it from here: travel.state.gov. Important: don't sign it yet — you'll sign in front of an acceptance agent at your appointment.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Sarah:</span> Got it — I'll fill it out but leave it unsigned.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> You'll also need to bring two payments:
+                    <br>1. A check or money order to the U.S. Department of State for $130
+                    <br>2. A second payment to the acceptance facility for the $35 execution fee</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> Some post offices accept cards for the execution fee, but it's smart to check ahead or bring a backup.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Sarah:</span> I've got both covered.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> Perfect. You're almost ready!</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p class="narrator">Narrator: Obi now confirms Sarah has everything prepared for a successful appointment.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> Okay, Sarah — you've done great so far.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> Let's go through everything one last time, just like if we were sitting together at your kitchen table. When you're done with this checklist, you'll be totally ready for your passport appointment.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> First: your most recent passport.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Sarah:</span> Got it — it's packed.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> Next: your passport photo.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Sarah:</span> Already printed and ready to go.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> Now: your name change documentation.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Sarah:</span> It's in the folder.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> Your government-issued photo ID?</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Sarah:</span> Yep — both are packed.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> DS-11 form?</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Sarah:</span> Right — not signing it yet.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> Finally, your payments?</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Sarah:</span> Both are ready.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> Awesome. One last tip — arrive a few minutes early and bring a photo ID. And if you're applying for expedited service, make sure to mention that to the agent.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Sarah:</span> Thanks — I feel really prepared now.</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Obi:</span> You've done everything right. Want me to email you this checklist and send a reminder the day before your appointment?</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p><span class="speaker">Sarah:</span> Yes, please!</p>
+                    </div>
+                    
+                    <div class="dialogue">
+                        <p class="narrator">Narrator: Obi has guided Sarah through a complex passport renewal process, turned potential frustration into confidence, and ensured she'll arrive fully prepared for her appointment. This is the kind of experience Obi will deliver for thousands of citizens every day.</p>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="footer">
+                <p>© 2025 GET Group | Obi AI Companion for Digital Government Services</p>
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        // Navigation
+        const navButtons = document.querySelectorAll('.nav-button');
+        const sections = document.querySelectorAll('.section');
+        
+        navButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const sectionId = button.getAttribute('data-section');
+                
+                // Update active button
+                navButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                // Show active section
+                sections.forEach(section => {
+                    if (section.id === sectionId) {
+                        section.classList.add('active');
+                    } else {
+                        section.classList.remove('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
