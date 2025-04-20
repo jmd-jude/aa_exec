@@ -226,29 +226,17 @@ with st.sidebar:
     )
     
     # Data availability checkboxes
-    st.markdown("### Available Identity Data")
+    st.markdown("### Available Identity & 1P Data")
     has_email = st.checkbox(
         "Email Addresses/HEMs", 
         value=True,
         help="Email addresses are powerful identifiers that connect online and offline data"
     )
     
-    has_device_id = st.checkbox(
-        "Device IDs", 
+    has_physical_address = st.checkbox(
+        "Physical Addresses", 
         value=True,
-        help="Device IDs allow tracking and targeting across mobile devices and applications"
-    )
-    
-    has_cookie = st.checkbox(
-        "Cookie Data", 
-        value=True,
-        help="Cookies track web browsing behavior and site interactions"
-    )
-    
-    has_maid = st.checkbox(
-        "Mobile Advertising IDs", 
-        value=True,
-        help="MAIDs are resettable identifiers used for mobile app tracking and targeting"
+        help="Physical addresses link online behavior to direct mail and geographic data"
     )
     
     has_phone = st.checkbox(
@@ -257,32 +245,32 @@ with st.sidebar:
         help="Phone numbers connect SMS, call center, and other telecommunications channels"
     )
     
-    has_physical_address = st.checkbox(
-        "Physical Addresses", 
+    has_cookie = st.checkbox(
+        "Cookie Data", 
         value=False,
-        help="Physical addresses link online behavior to direct mail and geographic data"
+        help="Cookies track web browsing behavior and site interactions. Ask about our pixel solution"
+    )
+    
+    has_maid = st.checkbox(
+        "Mobile Advertising IDs", 
+        value=True,
+        help="MAIDs are identifiers used for mobile app tracking and targeting"
     )
     
     has_transaction_data = st.checkbox(
-        "Transaction History", 
+        "Transaction History (1P)", 
         value=False,
         help="Purchase data enables powerful segmentation and propensity modeling"
     )
     
     has_website_behavior = st.checkbox(
-        "Website Behavior", 
-        value=True,
+        "Website Behavior (1P)", 
+        value=False,
         help="Web analytics data allows for interest-based targeting and personalization"
     )
     
-    has_app_behavior = st.checkbox(
-        "App Usage Data", 
-        value=False,
-        help="App engagement data provides insights into mobile user behavior and preferences"
-    )
-    
     has_demographics = st.checkbox(
-        "Demographic Data", 
+        "Demographic Data (1P)", 
         value=False,
         help="Demographic information allows for audience segmentation by age, income, etc."
     )
@@ -431,8 +419,8 @@ with col1:
 with col2:
     channels = st.multiselect(
         "Activation channels", 
-        ["Email", "Social Media", "Display Ads", "Search", "Mobile Push", "Website", "Direct Mail", "In-store"],
-        default=["Email", "Social Media", "Display Ads", "Website"],
+        ["Email", "Social Media", "Display Ads", "Mobile Push", "Website", "Direct Mail"],
+        default=["Email", "Social Media", "Display Ads"],
         help="Defines where use cases can be activated, ensuring recommendations match existing channel capabilities"
     )
     
@@ -448,7 +436,6 @@ if schema_json and st.button("Generate Use Cases"):
         # Collect all the context
         available_identifiers = []
         if has_email: available_identifiers.append("Email Addresses")
-        if has_device_id: available_identifiers.append("Device IDs")
         if has_cookie: available_identifiers.append("Cookie Data")
         if has_maid: available_identifiers.append("Mobile Advertising IDs")
         if has_phone: available_identifiers.append("Phone Numbers")
@@ -457,7 +444,6 @@ if schema_json and st.button("Generate Use Cases"):
         available_data = []
         if has_transaction_data: available_data.append("Transaction History")
         if has_website_behavior: available_data.append("Website Behavior")
-        if has_app_behavior: available_data.append("App Usage Data")
         if has_demographics: available_data.append("Demographic Data")
         
         # Choose the appropriate system instructions and prompt based on user selection
@@ -575,7 +561,7 @@ if "generated_use_cases" in st.session_state.use_case_results:
     )
     
     # Implementation considerations
-    st.markdown("## Implementation Considerations")
+    st.markdown("## Implementation Suggestions")
     st.info("""
     **Next Steps:**
     1. Share these use cases with your technical team to confirm feasibility
