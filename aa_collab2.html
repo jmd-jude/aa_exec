@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strategic Partnership - JMD-AI & Audience Acuity</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8BAD3F;
+            --primary-light: #A1C153;
+            --primary-lighter: #BCD17A;
+            --primary-lightest: #E2ECC7;
+            --background: #F9FAFB;
+            --card-bg: #F3F4F6;
+            --text: #1F2937;
+            --text-light: #4B5563;
+            --border: #E5E7EB;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .page-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            padding: 2rem 0;
+            position: fixed;
+            height: 100vh;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-header {
+            padding: 0 1.5rem 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            margin-bottom: 1.5rem;
+        }
+
+        .sidebar-header h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-header p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        .nav-item.active {
+            background-color: rgba(255,255,255,0.2);
+        }
+
+        .nav-item.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background-color: white;
+        }
+
+        .nav-item-icon {
+            margin-right: 1rem;
+            font-weight: bold;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255,255,255,0.2);
+            border-radius: 4px;
+        }
+
+        .nav-item-text {
+            font-weight: 500;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            position: relative;
+        }
+
+        /* Header Banner */
+        .banner {
+            height: 220px;
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .banner::after {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background-image: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            top: -50%;
+            left: -50%;
+            opacity: 0.5;
+            transform: rotate(30deg);
+        }
+
+        .banner-content {
+            text-align: center;
+            color: white;
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 2rem;
+        }
+
+        .banner h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .banner p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+        }
+
+        /* Section Container */
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        section {
+            display: none;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-light);
+            display: inline-block;
+        }
+
+        h3 {
+            color: var(--primary);
+            margin: 1.5rem 0 1rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        /* Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1.25rem 1.5rem;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .card h3 {
+            color: white;
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+        /* Table Styles */
+        .table-container {
+            overflow-x: auto;
+            margin: 2rem 0;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background-color: var(--primary);
+            color: white;
+            text-align: left;
+            padding: 1rem 1.5rem;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            background-color: white;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Roadmap Stream Styles */
+        .streams-container {
+            margin: 2rem 0;
+            overflow-x: auto;
+        }
+
+        .streams {
+            display: flex;
+            gap: 2rem;
+            min-width: 900px;
+        }
+
+        .stream {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            background-color: white;
+            position: relative;
+        }
+
+        .stream-line {
+            position: absolute;
+            top: 85px;
+            left: 50%;
+            bottom: 30px;
+            width: 3px;
+            background-color: var(--primary-lightest);
+            transform: translateX(-50%);
+            z-index: 0;
+        }
+
+        .stream-header {
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+            background-color: var(--primary);
+            position: relative;
+            z-index: 1;
+        }
+
+        .stream:nth-child(2) .stream-header {
+            background-color: var(--primary-light);
+        }
+
+        .stream:nth-child(3) .stream-header {
+            background-color: var(--primary-lighter);
+        }
+
+        .stream-body {
+            padding: 2rem 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .milestone {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin-bottom: 2rem;
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .milestone:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+
+        .milestone::before {
+            content: "";
+            position: absolute;
+            left: 50%;
+            top: -15px;
+            transform: translateX(-50%);
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px var(--primary-lightest);
+            z-index: 2;
+        }
+
+        .milestone:first-child::before {
+            background-color: var(--primary);
+        }
+
+        .milestone-title {
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--text);
+        }
+
+        .milestone-quarter {
+            font-size: 0.8rem;
+            color: white;
+            background-color: var(--primary);
+            padding: 0.35rem 0.7rem;
+            border-radius: 20px;
+            display: inline-block;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+
+        /* Next Steps */
+        .steps-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            max-width: 800px;
+            margin: 2rem auto;
+        }
+
+        .step-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .step-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+
+        .step-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-right: 1.5rem;
+            background-color: var(--primary-lightest);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        /* Mobile Responsive */
+        .mobile-menu-toggle {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 100;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+                width: 250px;
+            }
+            
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            .banner {
+                height: 180px;
+            }
+            
+            .banner h1 {
+                font-size: 2rem;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .streams {
+                flex-direction: column;
+                min-width: auto;
+            }
+            
+            .step-card {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .step-number {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="mobile-menu-toggle" id="mobileMenuToggle">☰</button>
+    
+    <div class="page-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h1>JMD-AI & Audience Acuity</h1>
+            </div>
+            
+            <nav>
+                <div class="nav-item active" data-section="executive-summary">
+                    <div class="nav-item-icon">📊</div>
+                    <div class="nav-item-text">Overview</div>
+                </div>
+                
+                <div class="nav-item" data-section="roadmap">
+                    <div class="nav-item-icon">🗓️</div>
+                    <div class="nav-item-text">Roadmap</div>
+                </div>
+                
+                <div class="nav-item" data-section="requirements">
+                    <div class="nav-item-icon">🔧</div>
+                    <div class="nav-item-text">Requirements</div>
+                </div>
+                
+                <div class="nav-item" data-section="partnership">
+                    <div class="nav-item-icon">🤝</div>
+                    <div class="nav-item-text">Partnership</div>
+                </div>
+                
+                <div class="nav-item" data-section="next-steps">
+                    <div class="nav-item-icon">➡️</div>
+                    <div class="nav-item-text">Next Steps</div>
+                </div>
+            </nav>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="banner">
+                <div class="banner-content">
+                    <h1>Strategic Partnership Discussion</h1>
+                    <p>Accelerating growth through AI-enabled product solutions</p>
+                </div>
+            </div>
+            
+            <div class="section-container">
+                <!-- Executive Summary -->
+                <section id="executive-summary" class="active">
+                    <h2>Executive Summary</h2>
+                    <p>A partnership to accelerate Audience Acuity's growth through AI-enabled product solutions, starting with the integration of natural language data querying capabilities into the Super Identity Graph (SIG).</p>
+                    
+                    <h3>Why This Partnership Makes Sense</h3>
+                    <div class="card-grid">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Product Knowledge</h3>
+                            </div>
+                            <div class="card-body">
+                                <p>Prior experience as a customer of SIG provides unique insight into user needs</p>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Complementary Skills</h3>
+                            </div>
+                            <div class="card-body">
+                                <p>AI implementation experience meets identity data leadership</p>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Ready-to-Deploy Innovation</h3>
+                            </div>
+                            <div class="card-body">
+                                <p>Working prototype has demonstrated immediate value potential</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Partnership Frameworks -->
+                <section id="partnership">
+                    <h2>Partnership Frameworks</h2>
+                    
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Engagement Model</th>
+                                    <th>Overview</th>
+                                    <th>Considerations</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Consulting</strong></td>
+                                    <td>Project-based work with defined deliverables</td>
+                                    <td>
+                                        • Simple to implement<br>
+                                        • Limited long-term alignment
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Joint Venture</strong></td>
+                                    <td>Co-owned entity focused on specific innovations</td>
+                                    <td>
+                                        • Shared upside potential<br>
+                                        • IP ownership structure
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Strategic Integration</strong></td>
+                                    <td>Fractional roles with base + growth incentives</td>
+                                    <td>
+                                        • Operational clarity<br>
+                                        • Balance of predictability and upside
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                
+                <!-- Growth Roadmap -->
+                <section id="roadmap">
+                    <h2>Roadmap for Growth</h2>
+                    
+                    <p>Our partnership vision features three parallel value streams that could progress concurrently rather than sequentially, allowing for overlapping initiatives and accelerated value creation.</p>
+                    
+                    <div class="streams-container">
+                        <div class="streams">
+                            <div class="stream">
+                                <div class="stream-header">Chat with Data Integration</div>
+                                <div class="stream-line"></div>
+                                <div class="stream-body">
+                                    <div class="milestone">
+                                        <div class="milestone-title">Snowflake Native App MVP</div>
+                                        <div class="milestone-quarter">1H 2025</div>
+                                        <div>Initial integration with SIG in Snowflake</div>
+                                    </div>
+                                    
+                                    <div class="milestone">
+                                        <div class="milestone-title">User Feedback & Refinement</div>
+                                        <div class="milestone-quarter">2H 2025</div>
+                                        <div>Enhance based on early adopter feedback</div>
+                                    </div>
+                                    
+                                    <div class="milestone">
+                                        <div class="milestone-title">Additional Data Clouds</div>
+                                        <div class="milestone-quarter">1H 2026</div>
+                                        <div>Extend to additional data platforms (Databricks, etc)</div>
+                                    </div>
+                                    
+                                    <div class="milestone">
+                                        <div class="milestone-title">Enterprise Clouds</div>
+                                        <div class="milestone-quarter">1H-2H 2026</div>
+                                        <div>Infrastructure platform integration (AWS, Azure, etc)</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="stream">
+                                <div class="stream-header">Operational AI Enhancement</div>
+                                <div class="stream-line"></div>
+                                <div class="stream-body">
+                                    <div class="milestone">
+                                        <div class="milestone-title">Revenue Acceleration Tools</div>
+                                        <div class="milestone-quarter">2H 2025</div>
+                                        <div>AI-powered sales enablement for agencies</div>
+                                    </div>
+                                    
+                                    <div class="milestone">
+                                        <div class="milestone-title">Elevate Internal Analytics</div>
+                                        <div class="milestone-quarter">1H 2026</div>
+                                        <div>Analytics democratization for teams</div>
+                                    </div>
+                                    
+                                    <div class="milestone">
+                                        <div class="milestone-title">Marketing Optimization</div>
+                                        <div class="milestone-quarter">1H 2026</div>
+                                        <div>AI-driven marketing content planning and creation</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="stream">
+                                <div class="stream-header">Product Innovation</div>
+                                <div class="stream-line"></div>
+                                <div class="stream-body">
+                                    <div class="milestone">
+                                        <div class="milestone-title">Product Development</div>
+                                        <div class="milestone-quarter">1H 2026</div>
+                                        <div>Pre-built audience segments; Retail media networks</div>
+                                    </div>
+                                    
+                                    <div class="milestone">
+                                        <div class="milestone-title">Product Marketing</div>
+                                        <div class="milestone-quarter">1H 2026</div>
+                                        <div>Enhanced marketing strategy formation</div>
+                                    </div>
+                                    
+                                    <div class="milestone">
+                                        <div class="milestone-title">New Data Sources</div>
+                                        <div class="milestone-quarter">2H 2026</div>
+                                        <div>Novel data sourcing & integration</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Resource Requirements -->
+                <section id="requirements">
+                    <h2>Strategic Resource Outlook</h2>
+                    
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Resource</th>
+                                    <th>Near-Term Needs</th>
+                                    <th>Long-Term Vision</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Software Development</strong></td>
+                                    <td>Snowflake app integration specialists</td>
+                                    <td>Full-stack AI development team</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>CX/UX Design & Engineering</strong></td>
+                                    <td>LLM prompt engineering expertise</td>
+                                    <td>Knowledge graph development</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Business Leadership</strong></td>
+                                    <td>Project management and stakeholder alignment</td>
+                                    <td>Strategic product leadership</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                
+                <!-- Next Steps -->
+                <section id="next-steps">
+                    <h2>Next Steps</h2>
+                    
+                    <div class="steps-container">
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <div class="step-title">Align on engagement model</div>
+                                <p>Define partnership structure, financial arrangements, and IP ownership</p>
+                            </div>
+                        </div>
+                        
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <div class="step-title">Resource planning</div>
+                                <p>Identify development sources (Snowflake, internal, external)</p>
+                            </div>
+                        </div>
+                        
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <div class="step-title">Execution timeline</div>
+                                <p>Create 60-90-180 day roadmap with milestones</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const navItems = document.querySelectorAll('.nav-item');
+            const sections = document.querySelectorAll('section');
+            const sidebar = document.getElementById('sidebar');
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            
+            // Toggle mobile menu
+            mobileMenuToggle.addEventListener('click', function() {
+                sidebar.classList.toggle('active');
+            });
+            
+            // Handle navigation
+            navItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const sectionId = item.getAttribute('data-section');
+                    
+                    // Update active nav item
+                    navItems.forEach(navItem => navItem.classList.remove('active'));
+                    item.classList.add('active');
+                    
+                    // Show active section
+                    sections.forEach(section => {
+                        if (section.id === sectionId) {
+                            section.classList.add('active');
+                        } else {
+                            section.classList.remove('active');
+                        }
+                    });
+                    
+                    // Close mobile menu after selection
+                    if (window.innerWidth <= 1024) {
+                        sidebar.classList.remove('active');
+                    }
+                });
+            });
+            
+            // Handle window resize
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 1024) {
+                    sidebar.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
