@@ -216,6 +216,7 @@
             box-shadow: var(--shadow);
             transition: all 0.3s ease;
             overflow: hidden;
+            height: 100%;
         }
 
         .card:hover {
@@ -237,6 +238,89 @@
             color: white;
             margin-top: 0;
             margin-bottom: 0;
+        }
+
+        /* Frameworks Cards */
+        .frameworks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .framework-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .framework-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .framework-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1.25rem 1.5rem;
+        }
+
+        .framework-card:nth-child(2) .framework-header {
+            background-color: var(--primary-light);
+        }
+
+        .framework-card:nth-child(3) .framework-header {
+            background-color: var(--primary-lighter);
+        }
+
+        .framework-title {
+            color: white;
+            margin: 0;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .framework-body {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .framework-overview {
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .considerations-title {
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--text);
+        }
+
+        .considerations-list {
+            list-style-type: none;
+        }
+
+        .considerations-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .considerations-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--primary);
+            font-weight: bold;
         }
 
         /* Table Styles */
@@ -471,7 +555,7 @@
                 font-size: 2rem;
             }
 
-            .card-grid {
+            .card-grid, .frameworks-grid {
                 grid-template-columns: 1fr;
             }
             
@@ -580,42 +664,48 @@
                 <section id="partnership">
                     <h2>Partnership Frameworks</h2>
                     
-                    <div class="table-container">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Engagement Model</th>
-                                    <th>Overview</th>
-                                    <th>Considerations</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><strong>Consulting</strong></td>
-                                    <td>Project-based work with defined deliverables</td>
-                                    <td>
-                                        • Simple to implement<br>
-                                        • Limited long-term alignment
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Joint Venture</strong></td>
-                                    <td>Co-owned entity focused on specific innovations</td>
-                                    <td>
-                                        • Shared upside potential<br>
-                                        • IP ownership structure
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Strategic Role Integration</strong></td>
-                                    <td>Fractional or FT roles with base + growth incentives</td>
-                                    <td>
-                                        • Operational clarity<br>
-                                        • Balance of predictability and upside
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="frameworks-grid">
+                        <div class="framework-card">
+                            <div class="framework-header">
+                                <h3 class="framework-title">Consulting</h3>
+                            </div>
+                            <div class="framework-body">
+                                <p class="framework-overview">Project-based work with defined deliverables</p>
+                                <h4 class="considerations-title">Considerations:</h4>
+                                <ul class="considerations-list">
+                                    <li>Simple to implement</li>
+                                    <li>Limited long-term alignment</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="framework-card">
+                            <div class="framework-header">
+                                <h3 class="framework-title">Joint Venture</h3>
+                            </div>
+                            <div class="framework-body">
+                                <p class="framework-overview">Co-owned entity focused on specific innovations</p>
+                                <h4 class="considerations-title">Considerations:</h4>
+                                <ul class="considerations-list">
+                                    <li>Shared upside potential</li>
+                                    <li>IP ownership structure</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="framework-card">
+                            <div class="framework-header">
+                                <h3 class="framework-title">Strategic Role Integration</h3>
+                            </div>
+                            <div class="framework-body">
+                                <p class="framework-overview">Fractional or FT roles with base + growth incentives</p>
+                                <h4 class="considerations-title">Considerations:</h4>
+                                <ul class="considerations-list">
+                                    <li>Operational clarity</li>
+                                    <li>Balance of predictability and upside</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </section>
                 
