@@ -256,6 +256,7 @@
             padding: 1rem;
             margin-bottom: 1rem;
             position: relative;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
         }
         
         .milestone::after {
@@ -282,6 +283,11 @@
             font-size: 0.8rem;
             color: var(--text-light);
             margin-bottom: 0.5rem;
+            background-color: #e0e0e0; /* Light gray background */
+            padding: 0.3rem 0.6rem; /* Add some padding */
+            border-radius: 4px; /* Rounded corners */
+            display: inline-block; /* Makes it behave like a button */
+            font-weight: 500; /* Slightly bolder text */
         }
 
         @media (max-width: 768px) {
@@ -313,7 +319,7 @@
 
         <nav>
             <button class="nav-button active" data-section="executive-summary">Executive Summary</button>
-            <button class="nav-button" data-section="roadmap">Value Creation Roadmap</button>
+            <button class="nav-button" data-section="roadmap">Strategic Roadmap</button>
             <button class="nav-button" data-section="requirements">Resource Requirements</button>
             <button class="nav-button" data-section="partnership">Partnership Frameworks</button>
             <button class="nav-button" data-section="next-steps">Next Steps</button>
@@ -334,10 +340,6 @@
                     <div class="card">
                         <h3>Complementary Skills</h3>
                         <p>AI implementation experience meets identity data leadership</p>
-                    </div>
-                    <div class="card">
-                        <h3>Aligned Incentives</h3>
-                        <p>Flexible engagement model with base compensation + performance upside</p>
                     </div>
                     <div class="card">
                         <h3>Ready-to-Deploy Innovation</h3>
@@ -371,27 +373,27 @@
                             <td><strong>Joint Venture</strong></td>
                             <td>Co-owned entity focused on specific innovations</td>
                             <td>
-                                • Strong upside potential<br>
-                                • Clearer IP ownership structure
+                                • Shared upside potential<br>
+                                • IP ownership structure
                             </td>
                         </tr>
                         <tr>
                             <td><strong>Strategic Integration</strong></td>
-                            <td>Embedded team with base + performance incentives</td>
+                            <td>Fractional roles with base + growth incentives</td>
                             <td>
-                                • Operational flexibility<br>
-                                • Balance of security and upside
+                                • Operational clarity<br>
+                                • Balance of predictability and upside
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </section>
 
-            <!-- Value Creation Roadmap -->
+            <!-- Growth Roadmap -->
             <section id="roadmap">
-                <h2>Value Creation Roadmap</h2>
+                <h2>Roadmap for Growth</h2>
                 
-                <p>Our partnership vision features three parallel value streams that develop concurrently rather than sequentially, allowing for overlapping initiatives and accelerated value creation.</p>
+                <p>Our partnership vision features three parallel value streams that could progress concurrently rather than sequentially, allowing for overlapping initiatives and accelerated value creation.</p>
                 
                 <div class="stream-container">
                     <div class="streams">
@@ -400,26 +402,26 @@
                             <div class="stream-body">
                                 <div class="milestone">
                                     <div class="milestone-title">Snowflake Native App MVP</div>
-                                    <div class="milestone-quarter">Q3 2025</div>
+                                    <div class="milestone-quarter">1H 2025</div>
                                     <div>Initial integration with SIG in Snowflake</div>
                                 </div>
                                 
                                 <div class="milestone">
                                     <div class="milestone-title">User Feedback & Refinement</div>
-                                    <div class="milestone-quarter">Q4 2025</div>
+                                    <div class="milestone-quarter">2H 2025</div>
                                     <div>Enhance based on early adopter feedback</div>
                                 </div>
                                 
                                 <div class="milestone">
-                                    <div class="milestone-title">Additional Clouds</div>
-                                    <div class="milestone-quarter">Q1-Q2 2026</div>
-                                    <div>Extend to additional platforms</div>
+                                    <div class="milestone-title">Additional Data Clouds</div>
+                                    <div class="milestone-quarter">1H 2026</div>
+                                    <div>Extend to additional data platforms (Databricks, etc)</div>
                                 </div>
                                 
                                 <div class="milestone">
-                                    <div class="milestone-title">Enterprise Integration</div>
-                                    <div class="milestone-quarter">Q3-Q4 2026</div>
-                                    <div>Deep activation platform integration</div>
+                                    <div class="milestone-title">Enterprise Clouds</div>
+                                    <div class="milestone-quarter">1H-2H 2026</div>
+                                    <div>Infrastructure platform integration (AWS, Azure, etc)</div>
                                 </div>
                             </div>
                         </div>
@@ -428,21 +430,21 @@
                             <div class="stream-header">Operational AI Enhancement</div>
                             <div class="stream-body">
                                 <div class="milestone">
-                                    <div class="milestone-title">Sales Intelligence Tools</div>
-                                    <div class="milestone-quarter">Q4 2025</div>
+                                    <div class="milestone-title">Revenue Acceleration Tools</div>
+                                    <div class="milestone-quarter">2H 2025</div>
                                     <div>AI-powered sales enablement for agencies</div>
                                 </div>
                                 
                                 <div class="milestone">
                                     <div class="milestone-title">Internal Analytics AI</div>
-                                    <div class="milestone-quarter">Q1-Q2 2026</div>
+                                    <div class="milestone-quarter">1H 2026</div>
                                     <div>Analytics democratization for teams</div>
                                 </div>
                                 
                                 <div class="milestone">
                                     <div class="milestone-title">Marketing Optimization</div>
-                                    <div class="milestone-quarter">Q3-Q4 2026</div>
-                                    <div>AI-driven marketing content creation</div>
+                                    <div class="milestone-quarter">1H 2026</div>
+                                    <div>AI-driven marketing content planning and creation</div>
                                 </div>
                             </div>
                         </div>
@@ -451,21 +453,21 @@
                             <div class="stream-header">Product Innovation</div>
                             <div class="stream-body">
                                 <div class="milestone">
-                                    <div class="milestone-title">Concept Development</div>
-                                    <div class="milestone-quarter">Q1 2026</div>
-                                    <div>Research for new audience segments</div>
+                                    <div class="milestone-title">Product Development</div>
+                                    <div class="milestone-quarter">1H 2026</div>
+                                    <div>Pre-built audience segments; Retail media networks</div>
                                 </div>
                                 
                                 <div class="milestone">
-                                    <div class="milestone-title">Product Strategy</div>
-                                    <div class="milestone-quarter">Q2-Q3 2026</div>
+                                    <div class="milestone-title">Product Marketing</div>
+                                    <div class="milestone-quarter">1H 2026</div>
                                     <div>Enhanced marketing strategy formation</div>
                                 </div>
                                 
                                 <div class="milestone">
                                     <div class="milestone-title">New Data Sources</div>
-                                    <div class="milestone-quarter">Q3-Q4 2026</div>
-                                    <div>Novel data source integration</div>
+                                    <div class="milestone-quarter">2H 2026</div>
+                                    <div>Novel data sourcing & integration</div>
                                 </div>
                             </div>
                         </div>
@@ -498,7 +500,7 @@
                         </tr>
                         <tr>
                             <td><strong>Business Leadership</strong></td>
-                            <td>Product management and stakeholder alignment</td>
+                            <td>Project management and stakeholder alignment</td>
                             <td>Strategic product leadership</td>
                         </tr>
                     </tbody>
@@ -515,16 +517,12 @@
                         <p>Define partnership structure, financial arrangements, and IP ownership</p>
                     </div>
                     <div class="card">
-                        <h3>2. Establish success metrics</h3>
-                        <p>Determine KPIs for value creation, adoption targets, and revenue forecasts</p>
-                    </div>
-                    <div class="card">
-                        <h3>3. Resource planning</h3>
+                        <h3>2. Resource planning</h3>
                         <p>Identify development sources (Snowflake, internal, external)</p>
                     </div>
                     <div class="card">
-                        <h3>4. Execution timeline</h3>
-                        <p>Create detailed 90-day roadmap with milestones</p>
+                        <h3>3. Execution timeline</h3>
+                        <p>Create 60-90-180 day roadmap with milestones</p>
                     </div>
                 </div>
             </section>
