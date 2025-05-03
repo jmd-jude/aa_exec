@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Core Reasoning Flow</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+      background-color: #f9f9f9;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background-color: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+    h1 {
+      color: #1E88E5;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .subtitle {
+      text-align: center;
+      color: #666;
+      margin-bottom: 40px;
+    }
+    .flow-diagram {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 40px 0;
+    }
+    .main-flow {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      margin-bottom: 50px;
+    }
+    .process-box {
+      width: 22%;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    }
+    .process-title {
+      font-weight: bold;
+      font-size: 1.1em;
+      margin-bottom: 10px;
+    }
+    .process-description {
+      font-size: 0.85em;
+      line-height: 1.4;
+    }
+    .box-user-input {
+      background-color: #E3F2FD;
+      border: 2px solid #1E88E5;
+    }
+    .box-ai-reasoning {
+      background-color: #F3E5F5;
+      border: 2px solid #9C27B0;
+    }
+    .box-execution {
+      background-color: #E0F7FA;
+      border: 2px solid #00BCD4;
+    }
+    .box-results {
+      background-color: #FFF8E1;
+      border: 2px solid #FFC107;
+    }
+    .arrow {
+      flex-grow: 0;
+      width: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #757575;
+    }
+    .decision-diamonds {
+      display: flex;
+      justify-content: space-around;
+      width: 80%;
+      margin-bottom: 30px;
+    }
+    .decision {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 40%;
+    }
+    .diamond {
+      width: 100px;
+      height: 100px;
+      background-color: white;
+      border: 2px solid #757575;
+      transform: rotate(45deg);
+      margin-bottom: 40px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .diamond-text {
+      transform: rotate(-45deg);
+      text-align: center;
+      font-weight: bold;
+      font-size: 0.9em;
+      color: #424242;
+    }
+    .decision-path {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    .path-label {
+      padding: 5px 15px;
+      border-radius: 15px;
+      font-weight: bold;
+      font-size: 0.9em;
+    }
+    .path-no {
+      color: #9C27B0;
+    }
+    .path-yes {
+      color: #9C27B0;
+    }
+    .path-empty {
+      color: #00BCD4;
+    }
+    .path-success {
+      color: #00BCD4;
+    }
+    .vertical-line {
+      width: 2px;
+      height: 50px;
+      background-color: #757575;
+      margin: 0 auto;
+    }
+    .refinement-boxes {
+      display: flex;
+      justify-content: space-around;
+      width: 80%;
+    }
+    .refinement-box {
+      width: 40%;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .refine-sql {
+      background-color: #F3E5F5;
+      border: 2px solid #9C27B0;
+    }
+    .adjust-filters {
+      background-color: #E0F7FA;
+      border: 2px solid #00BCD4;
+    }
+    .refinement-title {
+      font-weight: bold;
+      font-size: 1em;
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+    }
+    .refresh-icon {
+      display: inline-block;
+      margin-right: 8px;
+      font-size: 1.2em;
+    }
+    .return-text {
+      font-size: 0.8em;
+      margin-top: 15px;
+      color: #616161;
+      font-style: italic;
+    }
+    .guardrails {
+      margin-top: 60px;
+    }
+    .guardrails-title {
+      font-weight: bold;
+      font-size: 1.2em;
+      margin-bottom: 20px;
+      color: #424242;
+      text-align: center;
+    }
+    .guardrail-boxes {
+      display: flex;
+      justify-content: space-between;
+    }
+    .guardrail-box {
+      width: 31%;
+      padding: 15px;
+      background-color: #FFEBEE;
+      border: 2px solid #E57373;
+      border-radius: 8px;
+    }
+    .guardrail-title {
+      font-weight: bold;
+      color: #D32F2F;
+      margin-bottom: 10px;
+      font-size: 0.95em;
+    }
+    .guardrail-description {
+      font-size: 0.85em;
+      color: #424242;
+    }
+    .icon {
+      font-size: 2em;
+      margin-bottom: 10px;
+      color: #757575;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1> ore Reasoning Flow</h1>
+    <div class="subtitle">Natural Language to Data Insights Processing Pipeline</div>
+    
+    <div class="flow-diagram">
+      <!-- Main Process Flow -->
+      <div class="main-flow">
+        <!-- User Input Box -->
+        <div class="process-box box-user-input">
+          <div class="icon">👤</div>
+          <div class="process-title">User Input</div>
+          <div class="process-description">Natural language question from non-technical user</div>
+        </div>
+        
+        <!-- Arrow -->
+        <div class="arrow">→</div>
+        
+        <!-- AI Reasoning Box -->
+        <div class="process-box box-ai-reasoning">
+          <div class="icon">🧠</div>
+          <div class="process-title">AI Reasoning</div>
+          <div class="process-description">Intent recognition + Schema-aware SQL generation</div>
+        </div>
+        
+        <!-- Arrow -->
+        <div class="arrow">→</div>
+        
+        <!-- Secure Execution Box -->
+        <div class="process-box box-execution">
+          <div class="icon">🔒</div>
+          <div class="process-title">Secure Execution</div>
+          <div class="process-description">Run SQL with guardrails and access controls</div>
+        </div>
+        
+        <!-- Arrow -->
+        <div class="arrow">→</div>
+        
+        <!-- Formatted Results Box -->
+        <div class="process-box box-results">
+          <div class="icon">📊</div>
+          <div class="process-title">Formatted Results</div>
+          <div class="process-description">Clean, well-formatted output with optional follow-ups</div>
+        </div>
+      </div>
+      
+      <!-- Decision Diamonds -->
+      <div class="decision-diamonds">
+        <!-- Valid SQL Decision -->
+        <div class="decision">
+          <div class="diamond">
+            <div class="diamond-text">Valid SQL?</div>
+          </div>
+          
+          <!-- Decision Paths -->
+          <div class="decision-path">
+            <div class="path-label path-no">No ↓</div>
+            <div class="path-label path-yes">Yes →</div>
+          </div>
+        </div>
+        
+        <!-- Results Decision -->
+        <div class="decision">
+          <div class="diamond">
+            <div class="diamond-text">Results?</div>
+          </div>
+          
+          <!-- Decision Paths -->
+          <div class="decision-path">
+            <div class="path-label path-empty">Empty ↓</div>
+            <div class="path-label path-success">Success →</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Vertical Lines -->
+      <div class="vertical-line"></div>
+      
+      <!-- Refinement Boxes -->
+      <div class="refinement-boxes">
+        <!-- Refine SQL Generation -->
+        <div class="refinement-box refine-sql">
+          <div class="refinement-title">
+            <span class="refresh-icon">↻</span> Refine SQL Generation
+          </div>
+          <div class="return-text">↑ Returns to AI Reasoning</div>
+        </div>
+        
+        <!-- Auto-adjust Query Filters -->
+        <div class="refinement-box adjust-filters">
+          <div class="refinement-title">
+            <span class="refresh-icon">↻</span> Auto-adjust Query Filters
+          </div>
+          <div class="return-text">↑ Returns to Secure Execution</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Guardrails Section -->
+    <div class="guardrails">
+      <div class="guardrails-title">Key Guardrails Throughout</div>
+      
+      <div class="guardrail-boxes">
+        <!-- Authentication & Authorization -->
+        <div class="guardrail-box">
+          <div class="guardrail-title">Authentication & Authorization</div>
+          <div class="guardrail-description">Schema filtering based on user access rights</div>
+        </div>
+        
+        <!-- Contextual Boundaries -->
+        <div class="guardrail-box">
+          <div class="guardrail-title">Contextual Boundaries</div>
+          <div class="guardrail-description">Follow-ups limited to current result context</div>
+        </div>
+        
+        <!-- Transparent Processing -->
+        <div class="guardrail-box">
+          <div class="guardrail-title">Transparent Processing</div>
+          <div class="guardrail-description">SQL visible to users for verification</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

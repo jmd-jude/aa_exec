@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User & Data Flow Diagram</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+      background-color: #f9f9f9;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background-color: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+    h1 {
+      color: #1E88E5;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    h2 {
+      color: #1E88E5;
+      font-size: 1.3em;
+      margin-top: 30px;
+      border-bottom: 1px solid #e0e0e0;
+      padding-bottom: 10px;
+    }
+    .subtitle {
+      text-align: center;
+      color: #666;
+      margin-bottom: 40px;
+    }
+    .flow-container {
+      position: relative;
+      margin: 50px 0;
+    }
+    .flow-step {
+      position: relative;
+      background-color: white;
+      border: 2px solid #1976D2;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 40px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    }
+    .flow-step-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    .step-number {
+      background-color: #1976D2;
+      color: white;
+      font-weight: bold;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+      flex-shrink: 0;
+    }
+    .step-title {
+      font-weight: bold;
+      font-size: 1.2em;
+      color: #1976D2;
+      flex-grow: 1;
+    }
+    .flow-content {
+      padding-left: 45px;
+    }
+    .flow-arrow {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      height: 40px;
+      width: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .arrow-line {
+      width: 2px;
+      flex-grow: 1;
+      background-color: #1976D2;
+    }
+    .arrow-head {
+      width: 0;
+      height: 0;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-top: 10px solid #1976D2;
+    }
+    .decision-point {
+      background-color: #E3F2FD;
+      border: 2px dashed #1976D2;
+      border-radius: 8px;
+      padding: 15px;
+      margin: 15px 0;
+      position: relative;
+    }
+    .decision-header {
+      font-weight: bold;
+      color: #1976D2;
+      margin-bottom: 10px;
+    }
+    .decision-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    .decision-option {
+      background-color: white;
+      border: 1px solid #1976D2;
+      border-radius: 20px;
+      padding: 8px 15px;
+      font-size: 0.9em;
+      display: flex;
+      align-items: center;
+    }
+    .option-arrow {
+      color: #1976D2;
+      margin-left: 5px;
+      font-weight: bold;
+    }
+    .data-flow {
+      background-color: #FFF8E1;
+      border-left: 4px solid #FFC107;
+      padding: 10px 15px;
+      margin: 15px 0;
+      font-size: 0.9em;
+    }
+    .data-flow-title {
+      font-weight: bold;
+      color: #F57C00;
+      margin-bottom: 5px;
+    }
+    .user-action {
+      background-color: #E8F5E9;
+      border-left: 4px solid #4CAF50;
+      padding: 10px 15px;
+      margin: 15px 0;
+      font-size: 0.9em;
+    }
+    .user-action-title {
+      font-weight: bold;
+      color: #388E3C;
+      margin-bottom: 5px;
+    }
+    .system-action {
+      background-color: #E3F2FD;
+      border-left: 4px solid #2196F3;
+      padding: 10px 15px;
+      margin: 15px 0;
+      font-size: 0.9em;
+    }
+    .system-action-title {
+      font-weight: bold;
+      color: #1976D2;
+      margin-bottom: 5px;
+    }
+    .note-box {
+      background-color: #FFFDE7;
+      border: 1px solid #FFC107;
+      border-radius: 8px;
+      padding: 15px;
+      margin: 30px 0;
+      font-size: 0.9em;
+    }
+    .refinement-loop {
+      display: flex;
+      align-items: flex-start;
+      margin: 20px 0;
+    }
+    .loop-arrow {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 10px;
+    }
+    .loop-icon {
+      color: #F57C00;
+      font-size: 24px;
+      margin-bottom: 5px;
+    }
+    .loop-text {
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      transform: rotate(180deg);
+      color: #F57C00;
+      font-weight: bold;
+      font-size: 0.8em;
+      text-transform: uppercase;
+    }
+    .loop-content {
+      flex-grow: 1;
+      border: 2px dashed #F57C00;
+      border-radius: 8px;
+      padding: 15px;
+      background-color: #FFF8E1;
+    }
+    .two-column {
+      display: flex;
+      gap: 30px;
+      margin: 20px 0;
+    }
+    .column {
+      flex: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>User & Data Flow Diagram</h1>
+    <div class="subtitle">Natural Language Data Exploration Journey</div>
+    
+    <div class="flow-container">
+      <!-- Step 1: User Authentication -->
+      <div class="flow-step">
+        <div class="flow-step-header">
+          <div class="step-number">1</div>
+          <div class="step-title">User Authentication</div>
+        </div>
+        <div class="flow-content">
+          <div class="user-action">
+            <div class="user-action-title">User Action</div>
+            <p>User logs in with email/password credentials or creates a new account.</p>
+          </div>
+          
+          <div class="system-action">
+            <div class="system-action-title">System Action</div>
+            <p>System authenticates user and determines role permissions (admin vs. standard).</p>
+          </div>
+          
+          <div class="data-flow">
+            <div class="data-flow-title">Data Flow</div>
+            <p>User credentials → Authentication service → Role information → Session state</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="flow-arrow">
+        <div class="arrow-line"></div>
+        <div class="arrow-head"></div>
+      </div>
+      
+      <!-- Step 2: Connection Selection -->
+      <div class="flow-step">
+        <div class="flow-step-header">
+          <div class="step-number">2</div>
+          <div class="step-title">Data Connection Selection</div>
+        </div>
+        <div class="flow-content">
+          <div class="decision-point">
+            <div class="decision-header">Decision Point: Connection Management</div>
+            <p>User must select an existing connection or create a new one (admin only).</p>
+            <div class="decision-options">
+              <div class="decision-option">Select existing connection <span class="option-arrow">→</span></div>
+              <div class="decision-option">Add new connection (Admin only) <span class="option-arrow">→</span></div>
+            </div>
+          </div>
+          
+          <div class="system-action">
+            <div class="system-action-title">System Action</div>
+            <p>System loads connection configuration and authorized schema information.</p>
+          </div>
+          
+          <div class="data-flow">
+            <div class="data-flow-title">Data Flow</div>
+            <p>Connection selection → Schema introspection → Database metadata → Business context enrichment</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="flow-arrow">
+        <div class="arrow-line"></div>
+        <div class="arrow-head"></div>
+      </div>
+      
+      <!-- Step 3: Natural Language Query -->
+      <div class="flow-step">
+        <div class="flow-step-header">
+          <div class="step-number">3</div>
+          <div class="step-title">Natural Language Query</div>
+        </div>
+        <div class="flow-content">
+          <div class="user-action">
+            <div class="user-action-title">User Action</div>
+            <p>User enters a business question in everyday language (e.g., "What were our top 10 customers by revenue last quarter?")</p>
+          </div>
+          
+          <div class="system-action">
+            <div class="system-action-title">System Action: AI Reasoning</div>
+            <p>System interprets user intent and constructs a schema-aware query plan.</p>
+          </div>
+          
+          <div class="data-flow">
+            <div class="data-flow-title">Data Flow: Prompt Construction</div>
+            <p>User question → Chat memory → Schema context → LLM processing → SQL generation</p>
+          </div>
+          
+          <div class="refinement-loop">
+            <div class="loop-arrow">
+              <div class="loop-icon">↻</div>
+              <div class="loop-text">Refinement Loop</div>
+            </div>
+            <div class="loop-content">
+              <div class="system-action-title">Auto-Refinement Process</div>
+              <p>If the generated SQL is invalid or returns no results, system automatically refines and retries:</p>
+              <ol>
+                <li><strong>Error Detection:</strong> Identifies syntax errors or execution failures</li>
+                <li><strong>Query Adjustment:</strong> Reformulates query with additional context</li>
+                <li><strong>Filter Refinement:</strong> Adjusts overly restrictive filters if results are empty</li>
+                <li><strong>Schema Alignment:</strong> Ensures query matches available table structure</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="flow-arrow">
+        <div class="arrow-line"></div>
+        <div class="arrow-head"></div>
+      </div>
+      
+      <!-- Step 4: Query Execution -->
+      <div class="flow-step">
+        <div class="flow-step-header">
+          <div class="step-number">4</div>
+          <div class="step-title">Secure Query Execution</div>
+        </div>
+        <div class="flow-content">
+          <div class="system-action">
+            <div class="system-action-title">System Action</div>
+            <p>System executes the generated SQL against the connected database with user's authorized access level.</p>
+          </div>
+          
+          <div class="data-flow">
+            <div class="data-flow-title">Data Flow</div>
+            <p>Generated SQL → Connection manager → Database execution → Raw result set → Result formatting</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="flow-arrow">
+        <div class="arrow-line"></div>
+        <div class="arrow-head"></div>
+      </div>
+      
+      <!-- Step 5: Result Presentation -->
+      <div class="flow-step">
+        <div class="flow-step-header">
+          <div class="step-number">5</div>
+          <div class="step-title">Result Presentation</div>
+        </div>
+        <div class="flow-content">
+          <div class="system-action">
+            <div class="system-action-title">System Action</div>
+            <p>System presents formatted query results as interactive data tables with appropriate formatting.</p>
+          </div>
+          
+          <div class="user-action">
+            <div class="user-action-title">User Action</div>
+            <p>User reviews the results and can explore the data table directly.</p>
+          </div>
+          
+          <div class="decision-point">
+            <div class="decision-header">Decision Point: Analysis Options</div>
+            <p>User chooses how to proceed with the results.</p>
+            <div class="decision-options">
+              <div class="decision-option">Explain This Query <span class="option-arrow">→</span></div>
+              <div class="decision-option">Switch to Discussion Mode <span class="option-arrow">→</span></div>
+              <div class="decision-option">Ask a new question <span class="option-arrow">→</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="flow-arrow">
+        <div class="arrow-line"></div>
+        <div class="arrow-head"></div>
+      </div>
+      
+      <!-- Step 6: Analysis Modes -->
+      <div class="flow-step">
+        <div class="flow-step-header">
+          <div class="step-number">6</div>
+          <div class="step-title">Insight Generation</div>
+        </div>
+        <div class="flow-content">
+          <div class="two-column">
+            <div class="column">
+              <div class="system-action">
+                <div class="system-action-title">Query Explanation Mode</div>
+                <p>System explains how the user's question was translated into data operations using business terminology.</p>
+                <ul>
+                  <li>Query overview in plain English</li>
+                  <li>Data pipeline walkthrough</li>
+                  <li>Result structure explanation</li>
+                  <li>Data quality context</li>
+                </ul>
+              </div>
+            </div>
+            <div class="column">
+              <div class="system-action">
+                <div class="system-action-title">Discussion Mode</div>
+                <p>System enables conversational analysis about the current result set without new database queries.</p>
+                <ul>
+                  <li>Statistical insights from current data</li>
+                  <li>Pattern identification</li>
+                  <li>Business implications</li>
+                  <li>Follow-up question handling</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          <div class="user-action">
+            <div class="user-action-title">User Action</div>
+            <p>User asks follow-up questions about the data or switches back to query mode for new questions.</p>
+          </div>
+          
+          <div class="data-flow">
+            <div class="data-flow-title">Data Flow: Discussion Mode</div>
+            <p>Result set → Statistical summary → Original question context → Analysis memory → Insight generation</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="flow-arrow">
+        <div class="arrow-line"></div>
+        <div class="arrow-head"></div>
+      </div>
+      
+      <!-- Step 7: Iteration -->
+      <div class="flow-step">
+        <div class="flow-step-header">
+          <div class="step-number">7</div>
+          <div class="step-title">Iterative Exploration</div>
+        </div>
+        <div class="flow-content">
+          <div class="user-action">
+            <div class="user-action-title">User Action</div>
+            <p>User continues exploration by asking new questions or drilling deeper into existing results.</p>
+          </div>
+          
+          <div class="system-action">
+            <div class="system-action-title">System Action</div>
+            <p>System maintains conversation history and context for more relevant follow-up interactions.</p>
+          </div>
+          
+          <div class="decision-point">
+            <div class="decision-header">Decision Point: Exploration Path</div>
+            <p>User determines next steps in data journey.</p>
+            <div class="decision-options">
+              <div class="decision-option">Ask new question (return to step 3) <span class="option-arrow">→</span></div>
+              <div class="decision-option">Continue result analysis (step 6) <span class="option-arrow">→</span></div>
+              <div class="decision-option">Switch database connection (step 2) <span class="option-arrow">→</span></div>
+              <div class="decision-option">End session <span class="option-arrow">→</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="note-box">
+      <strong>Key User Experience Considerations:</strong>
+      <ul>
+        <li>The system maintains a conversational memory that preserves context between queries</li>
+        <li>Query refinement happens transparently without requiring technical intervention</li>
+        <li>The transition between data retrieval and insight analysis is seamless</li>
+        <li>Business context enhances both query generation and result interpretation</li>
+        <li>All data operations respect user permission levels and security constraints</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>
